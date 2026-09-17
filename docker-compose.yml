@@ -14,6 +14,7 @@ services:
       - ./webservice/data:/app/data
     depends_on:        # wait for postgres container
       - postgres
+      - redis
 
   frontend:
     build:
@@ -40,5 +41,16 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: always
 
+  redis:
+    image: redis:7-alpine
+    container_name: gophergpt-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+
+
 volumes:
   postgres_data:
+  redis_data:

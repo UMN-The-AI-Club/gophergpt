@@ -1,8 +1,42 @@
 import os
 import json
 import httpx
+import redis as redis_client
+
 from urllib.parse import urlencode
 from langchain.tools import tool
+
+
+def _get_redis():
+    return redis_client.Redis(
+        host=os.getenv("REDIS_HOST", "redis"),
+        port=int(os.getenv("REDIS_PORT", 6379)),
+        decode_responses=True
+    )
+    
+    
+async def _get_json(url: str, timeout: int = 12) -> dict:
+    
+    r = _get_redis()
+    cached = r.get(url)
+    
+    if cached:
+        print(f"[CACHE HIT] {url}")
+        return json.loads(cached)
+    
+    try:
+        async with httpx.AsyncClient() as client:
+            resp = await client.get(url, headers={"User-Agent": "gophergpt/1.0"}, timeout=timeout)
+            resp.raise_for_status()
+            data = resp.json()
+            print(f"[CACHE MISS] {url}")
+            r.setex(url, 60 * 60 * 6, json.dumps(data)) # 6 hours in seconds
+            return data
+    except httpx.HTTPStatusError as e:
+        return {"success": False, "error": f"HTTPError {e.response.status_code}", "url": url}
+    except Exception as e:
+        return {"success": False, "error": str(e), "url": url}
+
 
 def _parse_time(t) -> int | None:
     if t is None:
@@ -21,18 +55,7 @@ def _parse_time(t) -> int | None:
     if val < 12:
         return (val + 12) * 60
     return val * 60
-
-
-async def _get_json(url: str, timeout: int = 12) -> dict:
-    try:
-        async with httpx.AsyncClient() as client:
-            resp = await client.get(url, headers={"User-Agent": "gophergpt/1.0"}, timeout=timeout)
-            resp.raise_for_status()
-            return resp.json()
-    except httpx.HTTPStatusError as e:
-        return {"success": False, "error": f"HTTPError {e.response.status_code}", "url": url}
-    except Exception as e:
-        return {"success": False, "error": str(e), "url": url}
+    
     
 def resolve_sterm(term_str: str) -> str:
     term_norm = term_str.lower().strip()
@@ -45,6 +68,7 @@ def resolve_sterm(term_str: str) -> str:
     
     year = int(term_lst[1])
     return str((year - 1900) * 10 + digit)
+
 
 @tool
 async def umn_class_sections(subject: str, catalog_number: str, term: str) -> str:

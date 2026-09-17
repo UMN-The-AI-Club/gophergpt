@@ -20,7 +20,8 @@ RUN pip install --no-build-isolation --no-deps . || pip install \
     "httpx>=0.27.0" \
     "beautifulsoup4>=4.12.0" \
     "sqlalchemy>=2.0.51,<3.0.0" \
-    "alembic>=1.16.5,<2.0.0"
+    "alembic>=1.16.5,<2.0.0" \
+    "redis>=5.0.0"
 
 COPY . .
 
