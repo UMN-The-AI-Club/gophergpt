@@ -1,18 +1,22 @@
 import asyncio
+import hashlib
 import json
+import os
+import webservice.dependencies as dependencies
+
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import webservice.dependencies as dependencies
 from webservice.routers.chat import router as chat_router
 from webservice.routers.courses import router as course_router
 from webservice.routers.research import router as research_router
 from webservice.routers.profile import router as profile_router
 from webservice.profile_store import init_store
 from webservice.agent import ChatAgent
-from autonomy.rag.indexer import run_indexing
+
+from autonomy.rag.indexer import run_indexing, CSV_PATH, STAMP_PATH
 from autonomy.rag.vector_store import init_db
 from autonomy.tools.gophergrades_api import gophergrades_search, gophergrades_prof
 
@@ -25,7 +29,19 @@ async def lifespan_function(app: FastAPI):
     try:
         init_db()
         print("PostgreSQL connected and schema ready.")
-        asyncio.create_task(run_indexing())
+        csv_hash = hashlib.md5(open(CSV_PATH, "rb").read()).hexdigest()
+        try:
+            with open(STAMP_PATH) as f:
+                last_hash = f.read().strip()
+        except FileNotFoundError:
+            last_hash = ""
+
+        if csv_hash != last_hash:
+            print("CSV changed — re-indexing...")
+            asyncio.create_task(run_indexing())
+        else:
+            print("Index is up to date — skipping re-index.")
+            
     except Exception as e:
         print(f"WARNING: PostgreSQL connection failed: {e}")
 

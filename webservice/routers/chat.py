@@ -344,7 +344,8 @@ def save_endpoint(request: ConversationRequest):
 
         # exist, so read file
         with open(CONVERSATION_FILE, "r") as file:
-            conversations = json.load(file)
+            content = file.read().strip()
+            conversations = json.loads(content) if content else []
     else:
 
         # doesn't exist, so make list to store temporarily
