@@ -14,17 +14,20 @@ router = APIRouter()
 
 
 class ResearchRequest(BaseModel):
+    """Request model for research query endpoint."""
     query: str
     max_results: Optional[int] = 5
 
 
 class ResearchResult(BaseModel):
+    """Represents a single research result."""
     title: str
     url: str
     snippet: str
 
 
 class ResearchResponse(BaseModel):
+    """Response model for research query endpoint."""
     results: List[ResearchResult]
     source: str
     summary: Optional[str] = None
@@ -76,6 +79,15 @@ def _looks_like_umn_research_result(title: str, url: str, snippet: str) -> bool:
 
 
 def run_research_query(request: ResearchRequest) -> ResearchResponse:
+    """
+    Executes a research query using Tavily search and returns ranked results.
+
+    Args:
+        request: ResearchRequest containing the query string and max results
+
+    Returns:
+        a ResearchResponse with results, source, and optional summary
+    """
     load_dotenv()
     logger.info("/research POST called; query=%s, max_results=%s", request.query, request.max_results)
     openai_key = os.getenv("OPENAI_KEY")
@@ -99,8 +111,9 @@ def run_research_query(request: ResearchRequest) -> ResearchResponse:
     try:
         from autonomy.llm.openai_llm import OpenAILLM
         from langchain_tavily import TavilySearch
+        from autonomy.llm.factory import get_llm
 
-        llm = OpenAILLM(model_name="gpt-4o").get_model()
+        llm = get_llm().get_model()
         search = TavilySearch(
             max_results=str(request.max_results),
             topic="general",
@@ -113,6 +126,15 @@ def run_research_query(request: ResearchRequest) -> ResearchResponse:
         results: List[ResearchResult] = []
 
         def clean_text(s: Optional[str]) -> str:
+            """
+            Cleans and normalizes a text string.
+
+            Args:
+                s: the string to clean
+
+            Returns:
+                a cleaned string with extra whitespace and brackets removed
+            """
             if not s:
                 return ""
             text = " ".join(str(s).split()).strip()
@@ -120,6 +142,15 @@ def run_research_query(request: ResearchRequest) -> ResearchResponse:
             return text
 
         def flatten_raw(obj):
+            """
+            Recursively flattens nested dicts and lists from Tavily response.
+
+            Args:
+                obj: the object to flatten, can be a dict, list, or other type
+
+            Returns:
+                a flat list of items
+            """
             items = []
             if isinstance(obj, dict):
                 if "results" in obj and isinstance(obj["results"], list) and obj["results"]:
@@ -189,11 +220,26 @@ def run_research_query(request: ResearchRequest) -> ResearchResponse:
 
 @router.post("/research", response_model=ResearchResponse)
 def research_endpoint(request: ResearchRequest):
+    """
+    Handles POST requests to the research endpoint.
+
+    Args:
+        request: ResearchRequest containing the query string and max results
+
+    Returns:
+        a ResearchResponse with results, source, and optional summary
+    """
     return run_research_query(request)
 
 
 @router.get("/research")
 def research_info():
+    """
+    Returns usage information for the research endpoint.
+
+    Returns:
+        a dict with usage instructions and an example request body
+    """
     example = {"query": "climate change adaptation", "max_results": 3}
     return {
         "message": "POST to this endpoint with JSON body {query, max_results}.",

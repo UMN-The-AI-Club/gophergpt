@@ -1,7 +1,7 @@
 import json
 import os
 
-DATA_DIR = "/app/data"
+DATA_DIR = os.getenv("DATA_DIR", "/app/data")
 os.makedirs(DATA_DIR, exist_ok=True)
 
 PROFILES_PATH = os.path.join(DATA_DIR, "profiles.json")
@@ -32,13 +32,16 @@ def get_profile(user_id: str) -> dict:
     profiles = _read_json(PROFILES_PATH)
     if not isinstance(profiles, dict):
         profiles = {}
-    return profiles.get(user_id, {
-        "user_id": user_id,
-        "major": "",
-        "level": "",
-        "year": "",
-        "personalization_notes": "",
-    })
+    return profiles.get(
+        user_id,
+        {
+            "user_id": user_id,
+            "major": "",
+            "level": "",
+            "year": "",
+            "personalization_notes": "",
+        },
+    )
 
 
 def save_profile(user_id: str, profile_data: dict) -> dict:

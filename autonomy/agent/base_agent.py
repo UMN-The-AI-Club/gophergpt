@@ -44,7 +44,7 @@ class BaseStateAgent():
             for value in event.values():
                 yield value["messages"][-1].content
 
-    def invoke_agent(self, messages) -> dict:
+    async def invoke_agent(self, messages) -> dict:
         # return final state of graph.
         if not self.compiled_graph:
             try:
@@ -52,5 +52,5 @@ class BaseStateAgent():
             except Exception as e:
                 raise ValueError("Graph Compile Error! Cannot invoke agent.")
 
-        graph_output = self.compiled_graph.invoke(messages, {"recursion_limit": 15})
+        graph_output = await self.compiled_graph.ainvoke(messages, {"recursion_limit": 15})
         return graph_output  # returns full final state of the graph.

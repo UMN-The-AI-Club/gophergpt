@@ -80,6 +80,19 @@ function classify(raw) {
 }
 
 export function formatBotMessage(raw) {
+    try {
+        return _formatBotMessage(raw);
+    } catch (e) {
+        // A formatting bug must never blank the whole app. Degrade to safe,
+        // escaped plain text (newlines preserved) instead of crashing render.
+        return String(raw)
+            .split(/\r?\n/)
+            .map(line => `<p class="msg-p">${escapeHtml(line)}</p>`)
+            .join("");
+    }
+}
+
+function _formatBotMessage(raw) {
     const rawLines = String(raw).split(/\r?\n/);
     const tokens = rawLines.map(l => classify(l));
 
@@ -185,10 +198,17 @@ export function formatBotMessage(raw) {
                         if (b.type === "ul-header") {
                             headerHtml = `<strong class="msg-group-label">${escapeHtml(b.text)}</strong>`;
                         } else {
+                            // b starts with "**" but may not have a closing "**" yet
+                            // (e.g. mid-typewriter, or malformed markdown). Guard the
+                            // match — a null here used to crash the whole app.
                             const bl = b.text.match(/^\*\*(.+?)\*\*[:\s]*(.*)/);
-                            const label = escapeHtml(bl[1]);
-                            const rest = bl[2] ? processInline(bl[2]) : "";
-                            headerHtml = `<strong>${label}</strong>${rest ? `: ${rest}` : ""}`;
+                            if (bl) {
+                                const label = escapeHtml(bl[1]);
+                                const rest = bl[2] ? processInline(bl[2]) : "";
+                                headerHtml = `<strong>${label}</strong>${rest ? `: ${rest}` : ""}`;
+                            } else {
+                                headerHtml = processInline(b.text);
+                            }
                         }
 
                         if (subs.length > 0) {

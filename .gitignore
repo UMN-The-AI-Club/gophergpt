@@ -1,3 +1,63 @@
 node_modules/
 .DS_Store
 .env
+.env.bak
+*.bak
+webservice/data/conversations.json
+webservice/data/profiles.json
+webservice/data/gophergpt.db
+
+autonomy/rag/data/courses.csv
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Eval runs are noisy; force-add the baselines worth keeping:
+#   git add -f evals/results/<run>_judged.json
+evals/results/
+
+# AWS credentials/config backups
+.aws/
+
+# Terraform working directories
+**/.terraform/*
+.terraform/
+
+# Terraform state files - never commit these
+*.tfstate
+*.tfstate.*
+
+# Terraform variable files that may contain secrets
+*.tfvars
+*.tfvars.json
+
+# Keep safe example variable files
+!*.tfvars.example
+
+# Terraform plan files
+*.tfplan
+tfplan
+tfplan.*
+
+# Terraform crash logs
+crash.log
+crash.*.log
+
+# Terraform override files - usually local-only
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform CLI config
+.terraformrc
+terraform.rc
+
+# Local backend override files, if you ever use them
+backend.override.tf
+backend.override.tf.json
+
+# HTTPS Credentials
+certs/*
+!certs/README.md

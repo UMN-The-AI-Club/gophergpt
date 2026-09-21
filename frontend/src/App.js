@@ -21,6 +21,7 @@ function App() {
     return id;
   })());
   const [conversations, setConversations] = useState([]);
+  const [profile, setProfile] = useState({ major: "", year: "", level: "" });
   const isLoadedConversation = useRef(false); // prevent duplication of pages
   const conversationId = useRef(Date.now()); // stable id for current conversation, prevent duplications?
 
@@ -107,7 +108,7 @@ function App() {
 
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 90000); // 90s timeout
+      const timeout = setTimeout(() => controller.abort(), 180000); // 180s timeout (local model + multi-tool queries can be slow)
 
       const response = await fetch(`${process.env.REACT_APP_API_BASE}/chat`, {
         method: "POST",
@@ -115,7 +116,7 @@ function App() {
         body: JSON.stringify({
           message: userMessage,
           conversation_id: conversationId.current,
-          user_id: userId.current,
+          user_id: userId.current
         }),
         signal: controller.signal,
       });
@@ -126,11 +127,12 @@ function App() {
 
       const data = await response.json();
       const botContent = Array.isArray(data.content) ? data.content : [];
+      const botFollowUps = Array.isArray(data.follow_ups) ? data.follow_ups : [];
 
       setIsLoading(false);
       typeMessage(data.response, () => {
         setMessages((prev) => {
-          const updated = [...prev, { text: data.response, isUser: false, content: botContent }];
+          const updated = [...prev, { text: data.response, isUser: false, content: botContent, followUps: botFollowUps }];
           setTimeout(() => saveConversation(updated), 0);
           return updated;
         });
@@ -152,13 +154,17 @@ function App() {
 
   // History Implementations
 
-  // when app loads, fetch all saved conversations
+  // Fetch history and profile on mount
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_BASE}/history`)
       .then(res => res.json())
-      .then(data => {
-        setConversations(data.conversations);
-      });
+      .then(data => { setConversations(data.conversations); })
+      .catch(() => {});
+
+    fetch(`${process.env.REACT_APP_API_BASE}/profile?user_id=${encodeURIComponent(userId.current)}`)
+      .then(res => res.json())
+      .then(data => { if (data.ok && data.profile) setProfile(data.profile); })
+      .catch(() => {});
   }, []);
 
   // saves current conversation into database, can be accessed again by button from history list
@@ -231,7 +237,7 @@ function App() {
   // End of History
 
   return (
-    <div className="flex h-screen overflow-hidden bg-dark-gray text-white">
+    <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#1a1718", color: "#fff" }}>
       <Sidebar
         onNewChat={handleNewChat}
         onNavigate={setCurrentPage}
@@ -240,7 +246,7 @@ function App() {
         onLoad={loadPrevChat}
         onClearHistory={clearHistory}
       />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden" style={{ minHeight: 0 }}>
         {currentPage === "chat" && (
           <ChatPage
             messages={messages}
@@ -255,13 +261,22 @@ function App() {
             setInputValue={setInputValue}
             onSend={sendMessage}
             onSendDirect={sendDirect}
+            onNavigate={setCurrentPage}
+            profile={profile}
+            conversationCount={conversations.length}
           />
         )}
         {currentPage === "department" && <DepartmentExplorer />}
         {currentPage === "profile" && (
           <ProfileSettings
             userId={userId.current}
-            onClose={() => setCurrentPage("chat")}
+            onClose={() => {
+              setCurrentPage("chat");
+              fetch(`${process.env.REACT_APP_API_BASE}/profile?user_id=${encodeURIComponent(userId.current)}`)
+                .then(res => res.json())
+                .then(data => { if (data.ok && data.profile) setProfile(data.profile); })
+                .catch(() => {});
+            }}
           />
         )}
       </div>

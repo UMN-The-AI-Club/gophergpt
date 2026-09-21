@@ -1,0 +1,4 @@
+aws_region        = "us-east-1"
+project_name      = "university-chatbot"
+state_bucket_name = "university-chatbot-tf-state-REPLACE_WITH_ACCOUNT_ID"
+lock_table_name   = "university-chatbot-tf-locks"

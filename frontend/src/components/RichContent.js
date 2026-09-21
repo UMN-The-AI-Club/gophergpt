@@ -1,218 +1,361 @@
-import React from "react";
+import React, { useState } from "react";
+import { ExternalLink, TrendingUp } from "lucide-react";
 import GradeChart from "./compare/GradeChart";
 import SRTRatings from "./compare/SRTRatings";
+import SectionsCard from "./SectionsCard";
+
+// ─── helpers ───────────────────────────────────────────────────────────────────
 
 function shorten(text, max = 220) {
     if (!text) return "";
-    const cleaned = String(text).replace(/\s+/g, " ").trim();
-    return cleaned.length > max ? `${cleaned.slice(0, max).trim()}...` : cleaned;
+    const s = String(text).replace(/\s+/g, " ").trim();
+    return s.length > max ? `${s.slice(0, max).trim()}…` : s;
 }
+
+// ─── shell shared by all cards ─────────────────────────────────────────────────
+
+const CardShell = ({ children, accent = false }) => (
+    <div style={{
+        background: "#252122",
+        border: "1px solid rgba(255,255,255,.08)",
+        borderRadius: 14,
+        overflow: "hidden",
+        ...(accent ? { backgroundImage: "radial-gradient(ellipse at 0% 0%, rgba(122,0,25,.14) 0%, transparent 55%)" } : {}),
+    }}>
+        {children}
+    </div>
+);
+
+const CardHeader = ({ eyebrow, title, badge, right }) => (
+    <div style={{
+        padding: "15px 18px 13px",
+        borderBottom: "1px solid rgba(255,255,255,.06)",
+    }}>
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
+            <div>
+                {eyebrow && (
+                    <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".08em", color: "#8f878a", marginBottom: 4 }}>
+                        {eyebrow}
+                    </div>
+                )}
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <h3 style={{ fontSize: 16, fontWeight: 700, color: "#fff", margin: 0, letterSpacing: "-.01em" }}>
+                        {title}
+                    </h3>
+                    {badge && (
+                        <span style={{
+                            fontSize: 9.5, fontWeight: 700, letterSpacing: ".05em",
+                            color: "#FFCC33", background: "rgba(255,204,51,.1)",
+                            border: "1px solid rgba(255,204,51,.2)",
+                            padding: "2px 7px", borderRadius: 999,
+                        }}>
+                            {badge}
+                        </span>
+                    )}
+                </div>
+            </div>
+            {right}
+        </div>
+    </div>
+);
+
+// ─── Research card ──────────────────────────────────────────────────────────────
 
 function ResearchCard({ item }) {
     const results = Array.isArray(item.results) ? item.results.slice(0, 6) : [];
     const summary = shorten(item.summary, 160);
 
     return (
-        <div className="mt-4 rounded-2xl border border-[#4a1020] bg-gradient-to-br from-[#1e0a10] via-[#17080e] to-[#10050a] shadow-[0_18px_50px_rgba(122,0,25,0.25)]">
-            {/* Header */}
-            <div className="border-b border-[#4a1020] bg-[radial-gradient(circle_at_top_left,_rgba(122,0,25,0.25),_transparent_42%)] px-4 py-3 rounded-t-2xl overflow-hidden">
-                <div className="flex items-center justify-between gap-4">
-                    <div>
-                        <p className="text-[10px] uppercase tracking-[0.28em] text-gold/70">
-                            Research Explorer
-                        </p>
-                        <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
-                            UMN Research Snapshot
-                        </h3>
-                    </div>
-                    <div className="shrink-0 rounded-full border border-[#4a1020] bg-[#2a0d15] px-2.5 py-0.5 text-xs text-gray-400">
-                        {results.length} result{results.length === 1 ? "" : "s"}
-                    </div>
+        <CardShell accent>
+            <CardHeader
+                eyebrow="Research Explorer"
+                title="UMN Research Snapshot"
+                badge={`${results.length} result${results.length === 1 ? "" : "s"}`}
+            />
+            {summary && (
+                <div style={{ padding: "10px 18px 0", fontSize: 12.5, color: "#9a9294", lineHeight: 1.55 }}>
+                    {summary}
                 </div>
-                {summary && (
-                    <p className="mt-2 text-xs leading-5 text-gray-400">
-                        {summary}
-                    </p>
-                )}
-            </div>
-
-            {/* Results */}
-            <div className="grid gap-2 p-3">
-                {results.map((result, index) => (
-                    <a
-                        key={`${result.url || result.title}-${index}`}
-                        href={result.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group flex items-start justify-between gap-3 rounded-xl border border-[#3a1018] bg-[#1a0810] px-3 py-2.5 transition duration-200 hover:border-gold/40 hover:bg-[#250e18]"
-                    >
-                        <div className="min-w-0 flex-1">
-                            <h4 className="text-sm font-semibold leading-snug text-gold transition group-hover:text-[#ffd966] truncate">
-                                {shorten(result.title, 72) || "Untitled result"}
-                            </h4>
-                            <p className="mt-1 text-xs leading-5 text-gray-400 line-clamp-2">
-                                {shorten(result.snippet, 130)}
-                            </p>
-                            {result.url && (
-                                <p className="mt-1 truncate text-[10px] uppercase tracking-[0.12em] text-[#7a3040]">
-                                    {result.url.replace(/^https?:\/\//, "")}
-                                </p>
-                            )}
-                        </div>
-                        <div className="shrink-0 mt-0.5 rounded-full border border-gold/30 bg-[#3a1020] px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-gold">
-                            Open
-                        </div>
-                    </a>
+            )}
+            <div style={{ padding: "10px 12px 12px", display: "flex", flexDirection: "column", gap: 4 }}>
+                {results.map((result, i) => (
+                    <ResultRow key={`${result.url || result.title}-${i}`} result={result} />
                 ))}
             </div>
-        </div>
+        </CardShell>
     );
 }
 
-function ProfCompareCard({ item }) {
-    const profs = Array.isArray(item.profs) ? item.profs : [];
-    const summary = item.summary || "";
-
+const ResultRow = ({ result }) => {
+    const [hov, setHov] = useState(false);
     return (
-        <div className="mt-4 overflow-hidden rounded-2xl border border-[#4a1020] bg-gradient-to-br from-[#1e0a10] via-[#17080e] to-[#10050a] shadow-[0_18px_50px_rgba(122,0,25,0.25)]">
-            <div className="border-b border-[#4a1020] bg-[radial-gradient(circle_at_top_left,_rgba(122,0,25,0.25),_transparent_42%)] px-5 py-5">
-                <p className="text-[11px] uppercase tracking-[0.28em] text-gold/80">Professor Compare</p>
-                <h3 className="mt-2 text-2xl font-semibold leading-tight text-white">
-                    {profs.map(p => p.name).join(" vs ")}
-                </h3>
-                {summary && (
-                    <p className="mt-4 max-w-4xl text-sm leading-7 text-gray-300">{summary}</p>
+        <a
+            href={result.url}
+            target="_blank"
+            rel="noreferrer"
+            onMouseEnter={() => setHov(true)}
+            onMouseLeave={() => setHov(false)}
+            style={{
+                display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12,
+                borderRadius: 10, border: `1px solid ${hov ? "rgba(255,204,51,.25)" : "rgba(255,255,255,.06)"}`,
+                background: hov ? "rgba(255,255,255,.04)" : "transparent",
+                padding: "10px 12px",
+                textDecoration: "none",
+                transition: "background .12s, border-color .12s",
+            }}
+        >
+            <div style={{ minWidth: 0, flex: 1 }}>
+                <div style={{
+                    fontSize: 13, fontWeight: 600, color: hov ? "#ffd966" : "#FFCC33",
+                    marginBottom: 3, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+                }}>
+                    {shorten(result.title, 72) || "Untitled result"}
+                </div>
+                <div style={{ fontSize: 12, color: "#8f878a", lineHeight: 1.45, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                    {shorten(result.snippet, 130)}
+                </div>
+                {result.url && (
+                    <div style={{ fontSize: 10.5, color: "#6c6466", marginTop: 4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {result.url.replace(/^https?:\/\//, "")}
+                    </div>
                 )}
             </div>
-
-            <div className={`grid gap-6 p-5 ${profs.length >= 2 ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"}`}>
-                {profs.map((prof) => {
-                    const data = prof.data || {};
-                    const distributions = Array.isArray(data.distributions) ? data.distributions : [];
-                    const rmpScore = data.RMP_score ?? null;
-                    const rmpLink = data.RMP_link ?? null;
-
-                    // Aggregate grades across all of this prof's distributions
-                    const aggregatedGrades = {};
-                    distributions.forEach(dist => {
-                        Object.entries(dist.grades || {}).forEach(([grade, count]) => {
-                            aggregatedGrades[grade] = (aggregatedGrades[grade] || 0) + count;
-                        });
-                    });
-
-                    // Pick SRT from the distribution with the most survey responses
-                    let bestSRT = null;
-                    let maxResp = 0;
-                    distributions.forEach(dist => {
-                        if (!dist.srt_vals) return;
-                        try {
-                            const srt = typeof dist.srt_vals === "string" ? JSON.parse(dist.srt_vals) : dist.srt_vals;
-                            if ((srt.RESP || 0) > maxResp) { maxResp = srt.RESP; bestSRT = srt; }
-                        } catch {}
-                    });
-
-                    // Unique courses by course_num
-                    const seen = new Set();
-                    const courses = distributions.filter(d => {
-                        if (seen.has(d.course_num)) return false;
-                        seen.add(d.course_num); return true;
-                    });
-
-                    return (
-                        <div key={prof.code} className="rounded-xl border border-[#3a1018] bg-[#1a0810] p-4">
-                            <h4 className="text-lg font-bold text-gold mb-1">{prof.name}</h4>
-
-                            {rmpScore !== null && (
-                                <p className="text-sm text-gray-400 mb-4">
-                                    RateMyProfessors:{" "}
-                                    {rmpLink
-                                        ? <a href={rmpLink} target="_blank" rel="noreferrer" className="font-semibold text-white underline hover:text-gold">{Number(rmpScore).toFixed(1)} / 5</a>
-                                        : <span className="font-semibold text-white">{Number(rmpScore).toFixed(1)} / 5</span>
-                                    }
-                                </p>
-                            )}
-
-                            {courses.length > 0 && (
-                                <div className="mb-4">
-                                    <p className="text-xs uppercase tracking-wide text-[#a06070] mb-1.5">Courses Taught</p>
-                                    <div className="flex flex-wrap gap-1.5">
-                                        {courses.slice(0, 8).map(d => (
-                                            <span key={d.course_num} title={d.class_desc} className="rounded-full bg-[#2a0d15] border border-[#4a1020] px-2.5 py-0.5 text-xs text-gold cursor-default">
-                                                {d.course_num}
-                                            </span>
-                                        ))}
-                                        {courses.length > 8 && (
-                                            <span className="rounded-full bg-[#2a0d15] border border-[#4a1020] px-2.5 py-0.5 text-xs text-gray-500">
-                                                +{courses.length - 8} more
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-
-                            {Object.keys(aggregatedGrades).length > 0 && (
-                                <GradeChart grades={aggregatedGrades} title="Grade Distribution (All Courses)" />
-                            )}
-
-                            {bestSRT && (
-                                <div className="mt-6">
-                                    <SRTRatings srtVals={bestSRT} title="Teaching Ratings" />
-                                </div>
-                            )}
-                        </div>
-                    );
-                })}
+            <div style={{ flexShrink: 0, marginTop: 1 }}>
+                <ExternalLink size={13} style={{ color: hov ? "#FFCC33" : "#6c6466", transition: "color .12s" }} />
             </div>
-        </div>
+        </a>
     );
-}
+};
+
+// ─── Course compare card ────────────────────────────────────────────────────────
 
 function CourseCompareCard({ item }) {
     const courses = Array.isArray(item.courses) ? item.courses : [];
     const summary = item.summary || "";
 
     return (
-        <div className="mt-4 overflow-hidden rounded-2xl border border-[#4a1020] bg-gradient-to-br from-[#1e0a10] via-[#17080e] to-[#10050a] shadow-[0_18px_50px_rgba(122,0,25,0.25)]">
-            {/* Header */}
-            <div className="border-b border-[#4a1020] bg-[radial-gradient(circle_at_top_left,_rgba(122,0,25,0.25),_transparent_42%)] px-5 py-5">
-                <p className="text-[11px] uppercase tracking-[0.28em] text-gold/80">Course Compare</p>
-                <h3 className="mt-2 text-2xl font-semibold leading-tight text-white">
-                    {courses.map(c => c.code).join(" vs ")}
-                </h3>
-                {summary && (
-                    <p className="mt-4 max-w-4xl text-sm leading-7 text-gray-300">{summary}</p>
-                )}
-            </div>
-
-            {/* Panels */}
-            <div className={`grid gap-6 p-5 ${courses.length >= 2 ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"}`}>
+        <CardShell accent>
+            <CardHeader
+                eyebrow="Course Compare"
+                title={courses.map(c => c.code).join(" vs ")}
+            />
+            {summary && (
+                <div style={{ padding: "10px 18px 14px", fontSize: 13, color: "#c9bfc1", lineHeight: 1.6 }}>
+                    {summary}
+                </div>
+            )}
+            <div style={{
+                display: "grid",
+                gridTemplateColumns: courses.length >= 2 ? "1fr 1fr" : "1fr",
+                gap: 1,
+                background: "rgba(255,255,255,.05)",
+            }}>
                 {courses.map((course) => (
-                    <div key={course.code} className="rounded-xl border border-[#3a1018] bg-[#1a0810] p-4">
-                        <h4 className="text-lg font-bold text-gold mb-4">{course.code}</h4>
-                        {course.data?.total_grades && (
-                            <GradeChart grades={course.data.total_grades} />
-                        )}
-                        {course.data?.srt_vals && (
-                            <div className="mt-6">
-                                <SRTRatings srtVals={course.data.srt_vals} />
-                            </div>
-                        )}
-                    </div>
+                    <CoursePanelBlock key={course.code} course={course} />
                 ))}
             </div>
+        </CardShell>
+    );
+}
+
+const CoursePanelBlock = ({ course }) => (
+    <div style={{ background: "#1e1b1c", padding: "18px 18px 20px" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "#FFCC33", marginBottom: 16 }}>{course.code}</div>
+        {course.data?.total_grades && (
+            <GradeChart grades={course.data.total_grades} />
+        )}
+        {course.data?.srt_vals && (
+            <div style={{ marginTop: 22 }}>
+                <SRTRatings srtVals={course.data.srt_vals} />
+            </div>
+        )}
+    </div>
+);
+
+// ─── Prof compare card ──────────────────────────────────────────────────────────
+
+function ProfCompareCard({ item }) {
+    const profs   = Array.isArray(item.profs) ? item.profs : [];
+    const summary = item.summary || "";
+
+    return (
+        <CardShell accent>
+            <CardHeader
+                eyebrow="Professor Compare"
+                title={profs.map(p => p.name).join(" vs ")}
+            />
+            {summary && (
+                <div style={{ padding: "10px 18px 14px", fontSize: 13, color: "#c9bfc1", lineHeight: 1.6 }}>
+                    {summary}
+                </div>
+            )}
+            <div style={{
+                display: "grid",
+                gridTemplateColumns: profs.length >= 2 ? "1fr 1fr" : "1fr",
+                gap: 1,
+                background: "rgba(255,255,255,.05)",
+            }}>
+                {profs.map((prof) => (
+                    <ProfPanelBlock key={prof.code} prof={prof} />
+                ))}
+            </div>
+        </CardShell>
+    );
+}
+
+const ProfPanelBlock = ({ prof }) => {
+    const data          = prof.data || {};
+    const distributions = Array.isArray(data.distributions) ? data.distributions : [];
+    const rmpScore      = data.RMP_score ?? null;
+    const rmpLink       = data.RMP_link  ?? null;
+
+    const aggregatedGrades = {};
+    distributions.forEach(dist => {
+        Object.entries(dist.grades || {}).forEach(([grade, count]) => {
+            aggregatedGrades[grade] = (aggregatedGrades[grade] || 0) + count;
+        });
+    });
+
+    let bestSRT = null, maxResp = 0;
+    distributions.forEach(dist => {
+        if (!dist.srt_vals) return;
+        try {
+            const srt = typeof dist.srt_vals === "string" ? JSON.parse(dist.srt_vals) : dist.srt_vals;
+            if ((srt.RESP || 0) > maxResp) { maxResp = srt.RESP; bestSRT = srt; }
+        } catch {}
+    });
+
+    const seen = new Set();
+    const courses = distributions.filter(d => {
+        if (seen.has(d.course_num)) return false;
+        seen.add(d.course_num); return true;
+    });
+
+    return (
+        <div style={{ background: "#1e1b1c", padding: "18px 18px 20px" }}>
+            <div style={{ fontSize: 15, fontWeight: 700, color: "#FFCC33", marginBottom: 6 }}>{prof.name}</div>
+
+            {rmpScore != null && (
+                <div style={{ fontSize: 12.5, color: "#9a9294", marginBottom: 14 }}>
+                    RateMyProfessors:{" "}
+                    {rmpLink
+                        ? <a href={rmpLink} target="_blank" rel="noreferrer" style={{ color: "#fff", fontWeight: 600, textDecoration: "none" }}>
+                              {Number(rmpScore).toFixed(1)} / 5
+                              <TrendingUp size={11} style={{ marginLeft: 4, verticalAlign: "middle", opacity: 0.6 }} />
+                          </a>
+                        : <span style={{ color: "#fff", fontWeight: 600 }}>{Number(rmpScore).toFixed(1)} / 5</span>
+                    }
+                </div>
+            )}
+
+            {courses.length > 0 && (
+                <div style={{ marginBottom: 18 }}>
+                    <div style={{ fontSize: 10.5, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: "#6c6466", marginBottom: 8 }}>
+                        Courses Taught
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                        {courses.slice(0, 8).map(d => (
+                            <span key={d.course_num} title={d.class_desc} style={{
+                                fontSize: 11.5, fontWeight: 600, color: "#FFCC33",
+                                background: "rgba(255,204,51,.08)", border: "1px solid rgba(255,204,51,.15)",
+                                borderRadius: 6, padding: "2px 8px",
+                            }}>
+                                {d.course_num}
+                            </span>
+                        ))}
+                        {courses.length > 8 && (
+                            <span style={{
+                                fontSize: 11.5, color: "#6c6466",
+                                background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.07)",
+                                borderRadius: 6, padding: "2px 8px",
+                            }}>
+                                +{courses.length - 8} more
+                            </span>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {Object.keys(aggregatedGrades).length > 0 && (
+                <GradeChart grades={aggregatedGrades} title="Grade Distribution (All Courses)" />
+            )}
+
+            {bestSRT && (
+                <div style={{ marginTop: 22 }}>
+                    <SRTRatings srtVals={bestSRT} title="Teaching Ratings" />
+                </div>
+            )}
+        </div>
+    );
+};
+
+// ─── Single-course grades card ─────────────────────────────────────────────────
+
+function GradesCard({ item }) {
+    const courses = Array.isArray(item.courses) ? item.courses : [];
+    if (!courses.length) return null;
+
+    // Multiple courses go side-by-side (same panel layout as compare)
+    if (courses.length > 1) {
+        return (
+            <CardShell accent>
+                <CardHeader eyebrow="Grade Distributions" title={courses.map(c => c.code).join(" & ")} />
+                <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: 1,
+                    background: "rgba(255,255,255,.05)",
+                }}>
+                    {courses.map(c => <CoursePanelBlock key={c.code} course={c} />)}
+                </div>
+            </CardShell>
+        );
+    }
+
+    // Single course — full-width, no panel boxing
+    const course = courses[0];
+    return (
+        <CardShell accent>
+            <CardHeader eyebrow="Grade Distribution" title={course.code} />
+            <div style={{ padding: "18px 20px 22px" }}>
+                {course.data?.total_grades && (
+                    <GradeChart grades={course.data.total_grades} />
+                )}
+                {course.data?.srt_vals && (
+                    <div style={{ marginTop: 24, borderTop: "1px solid rgba(255,255,255,.06)", paddingTop: 22 }}>
+                        <SRTRatings srtVals={course.data.srt_vals} />
+                    </div>
+                )}
+            </div>
+        </CardShell>
+    );
+}
+
+// ─── Schedule card ──────────────────────────────────────────────────────────────
+
+function ScheduleContent({ item }) {
+    const courses = Array.isArray(item.courses) ? item.courses : [];
+    return (
+        <div>
+            {courses.map((course, i) => (
+                <SectionsCard key={course.code || i} course={course} />
+            ))}
         </div>
     );
 }
 
+// ─── dispatcher ────────────────────────────────────────────────────────────────
+
 export default function RichContent({ content = [] }) {
     if (!content.length) return null;
-
     return (
-        <div className="space-y-4">
+        <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 6 }}>
             {content.map((item, index) => {
-                if (item.type === "research") return <ResearchCard key={index} item={item} />;
-                if (item.type === "compare") return <CourseCompareCard key={index} item={item} />;
-                if (item.type === "prof_compare") return <ProfCompareCard key={index} item={item} />;
+                if (item.type === "research")     return <ResearchCard      key={index} item={item} />;
+                if (item.type === "grades")       return <GradesCard        key={index} item={item} />;
+                if (item.type === "compare")      return <CourseCompareCard key={index} item={item} />;
+                if (item.type === "prof_compare") return <ProfCompareCard   key={index} item={item} />;
+                if (item.type === "schedule")     return <ScheduleContent   key={index} item={item} />;
                 return null;
             })}
         </div>

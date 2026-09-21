@@ -1,0 +1,429 @@
+"Course subject code","Course number","Course name","Campus","Course description","Minimum credits","Maximum credits","Is this course repeatable?","What is the maximum number of completions allowed?","What is the maximum number of credits that can be earned from this course?","Grading basis","Requirements","Typically offered term(s)"
+"CSCI","1103","Introduction to Computer Programming in Java","Twin Cities","Fundamental programming concepts/software development using Java language. Problem solving skills. Algorithm development techniques. Use of abstractions/modularity. Data structures/abstract data types. Substantial programming projects. Weekly lab.
+","4","4","No","1","4","OPT - Student Option","-","Every Fall"
+"CSCI","1113","Introduction to C/C++ Programming for Scientists and Engineers","Twin Cities","Programming for scientists/engineers. C/C++ programming constructs, object-oriented programming, software development, fundamental numerical techniques. Exercises/examples from various scientific fields.
+
+prereq: Math 1271 or Math 1371 or Math 1571H or instr consent.","4","4","No","1","4","OPT - Student Option","013040","Every Fall, Spring & Summer"
+"CSCI","1115","Exploring Computer Science Exercises in C++","Twin Cities","This course is designed as a complement to CSCI 1113 for students who elect to devote additional time to get a broader exposure to concepts and practice of computer science. 
+
+Students will work in small groups to sharpen their problem solving and computational skills, and be exposed to a variety of applications of computing.
+","1","1","No","1","1","S-N - S-N Grade Basis","011045","Every Fall & Spring"
+"CSCI","1133","Introduction to Computing and Programming Concepts","Twin Cities","Fundamental programming concepts using Python language. Problem solving skills, recursion, object-oriented programming. Algorithm development techniques. Use of abstractions/modularity. Data structures/abstract data types. Develop programs to solve real-world problems.
+
+prereq: none","4","4","No","1","4","OPT - Student Option","-","Every Fall, Spring & Summer"
+"CSCI","1133H","Honors Introduction to Computing and Programming Concepts","Twin Cities","Programming concepts using Python language. Real world problem solving, recursion, object-oriented programming. Algorithm development techniques. Abstractions/modularity. Optional honors topics: programming robots, programming paradigms, artificial intelligence.
+
+prereq: [concurrent registration is required (or allowed) in MATH 1271 or concurrent registration is required (or allowed) in MATH 1371 or concurrent registration is required (or allowed) in MATH 1571H], CSci majors, pre-majors in CSE/CLA, honors student","4","4","No","1","4","A-F - A-F Grade Basis","000571","Every Fall"
+"CSCI","1135","Exploring Computer Science Exercises in Python","Twin Cities","This course is designed as a complement to CSCI 1133 for students who elect to devote additional time to get a broader exposure to concepts and practice of computer science. 
+
+Students will work in small groups to sharpen their problem solving and computational skills, and be exposed to a variety of applications of computing.","1","1","No","1","1","S-N - S-N Grade Basis","011046","Every Fall & Spring"
+"CSCI","1521","Programming Lab: Thinking with Machines","Twin Cities","This companion course to CSCI 2521: Thinking with Machines provides essential coding foundations for students with limited programming experience. Through hands-on exercises and practical examples, students will develop the minimal technical skills necessary for introductory AI-assisted development (""vibe coding"").
+
+The course focuses on practical coding literacy rather than comprehensive programming education. Students will learn just enough technical concepts to effectively communicate with AI coding assistants, understand introductory generated code, debug common errors, and successfully complete the CSCI 2521 software project.
+
+Key areas include understanding development environments, basic Python syntax and data structures, working with APIs, debugging strategies, version control basics, and deployment fundamentals.
+
+co-req: CSCI 2521","1","1","No","1","1","A-F - A-F Grade Basis","013969","Every Fall"
+"CSCI","1913","Introduction to Algorithms, Data Structures, and Program Development","Twin Cities","Advanced Object-Oriented programming to implement abstract data types (stacks, queues, lists, key-value stores) using various implementation strategies (array-backed, linked data structures, hash tables, binary trees) using the Java language. Searching/sorting algorithms. Basic algorithmic analysis. The Python scripting language. Substantial programming projects and Weekly labs.
+
+prereq: (CSCI 1103 or CSCI 1113 or EE 1301 or instr consent) AND (concurrent registration in MATH 1271 or MATH 1371 or MATH 1571H or MATH 1142 or instr consent)","4","4","No","1","4","OPT - Student Option","013762","Every Fall, Spring & Summer"
+"CSCI","1923","Python as a Second Programming Language","Twin Cities","Fundamental programming concepts and scripting using the Python language for students already familiar with programming concepts and syntax in C, C++, or Java. File IO and the use of libraries. Develop programs to solve real-world problems. This course is not intended for students who have taken CSCI 1133.
+
+prereq: CSci 1103 or CSci 1113","1","1","No","1","1","OPT - Student Option","013949","Every Fall & Spring"
+"CSCI","1933","Introduction to Algorithms and Data Structures","Twin Cities","Advanced object oriented programming to implement abstract data types (stacks, queues, linked lists, hash tables, binary trees) using Java language. Inheritance. Searching/sorting algorithms. Basic algorithmic analysis.  Use of software development tools. Weekly lab.
+
+prereq: Calc I (Math 1271 or Math 1371 or Math 1571H) as a corequisite, CSci 1133 as a prerequisite.","4","4","No","1","4","OPT - Student Option","013225","Every Fall, Spring & Summer"
+"CSCI","1933H","Honors Introduction to Algorithms and Data Structures","Twin Cities","Advanced object oriented programming to implement abstract data types (stacks, queues, linked lists, hash tables, binary trees) using Java language. Inheritance. Searching/sorting algorithms. Basic algorithmic analysis. Use of software development tools. Weekly lab. Optional honors topics: Advanced Java topics, GUI programming, CS research examples.
+
+co-requisite: Calc I (Math 1271 or Math 1371 or Math 1571H)  
+prerequisite: CSCI 1133 OR CSCI 1133H and honors student","4","4","No","1","4","A-F - A-F Grade Basis","010097","Every Spring"
+"CSCI","1935","Exploring Algorithms and Data Structures","Twin Cities","This course is designed as a complement to CSCI 1933 for students who elect to devote additional time to get a broader exposure to algorithms, data structures, concepts, and practice of computer science. 
+
+Students will work in small groups to sharpen their problem solving and computational skills with a special focus on developing efficient and effective algorithms using fundamental data structures.
+
+Co-requisite of CSci 1933 OR CSci 1933H is required.","1","1","No","1","1","S-N - S-N Grade Basis","012432","Every Fall & Spring"
+"CSCI","2011","Discrete Structures of Computer Science","Twin Cities","Foundations of discrete mathematics. Sets, sequences, functions, big-O, propositional/predicate logic, proof methods, counting methods, recursion/recurrences, relations, trees/graph fundamentals.
+
+prereq: MATH 1271 or MATH 1371 or MATH 1571H","4","4","No","1","4","OPT - Student Option","013082","Every Fall & Spring"
+"CSCI","2011H","Honors Discrete Structures of Computer Science","Twin Cities","Foundations of discrete mathematics. Sets, sequences, functions, big-O, propositional/predicate logic, proof methods, counting methods, recursion/recurrences, relations, trees/graph fundamentals. Advanced topics in discrete structures as time permits.
+
+prereq: Honors Student AND [MATH 1271 or MATH 1371 or MATH 1571H]","4","4","No","1","4","A-F - A-F Grade Basis","013228","Every Spring"
+"CSCI","2015","Exploring Discrete Structures of Computer Science","Twin Cities","This course is designed as a complement to CSCI 2011 for students who elect to devote additional time to get a broader exposure to the foundations of discrete mathematics. Students will work in small groups to sharpen their problem solving and computational skills with special focus on proof writing, Big-O analysis, and recursion/recurrences. 
+
+Co-requisite of CSci 2011 OR CSci 2011H is required.","1","1","No","1","1","S-N - S-N Grade Basis","012597","Every Fall & Spring"
+"CSCI","2021","Machine Architecture and Organization","Twin Cities","Introduction to hardware/software components of computer system. Data representation, boolean algebra, machine-level programs, instruction set architecture, processor organization, memory hierarchy, virtual memory, compiling, linking. Programming in C.
+
+prereq: 1913 or 1933  or 1933H","4","4","No","1","4","OPT - Student Option","012965","Every Fall & Spring"
+"CSCI","2033","Elementary Computational Linear Algebra","Twin Cities","Matrices/linear transformations, basic theory. Linear vector spaces. Inner product spaces. Systems of linear equations, Eigenvalues, singular values. Algorithms/computational matrix methods using MATLAB. Use of matrix methods to solve variety of computer science problems.
+
+prereq: CSCI [1103 OR 1113 OR 1133] & MATH [1271 OR 1371 OR 1571H]","4","4","No","1","4","OPT - Student Option","013033","Every Fall & Spring"
+"CSCI","2041","Advanced Programming Principles","Twin Cities","Principles/techniques for creating correct, robust, modular programs. Computing with symbolic data, recursion/induction, functional programming, impact of evaluation strategies, parallelism. Organizing data/computations around types. Search-based programming, concurrency, modularity.
+
+prereq: (CSci 1913 or CSci 1933 or 1933H) and (CSci 2011 or CSci 2011H)","4","4","No","1","4","OPT - Student Option","013470","Every Fall & Spring"
+"CSCI","2081","Introduction to Software Development","Twin Cities","echniques for design and development of software using Java. Introduction to object-oriented programming and design, integrated development environments, inheritance, and polymorphism. Software design principles, testing and debugging, and use of project management tools. Implementation of a software project using data structures, files, and I/O. This course is intended for non-CS Majors. 
+
+prereq: CSCI 1133 or CSCI 1133H","4","4","No","1","4","OPT - Student Option","011782","Every Fall & Spring"
+"CSCI","2521","Thinking with Machines: The Art, Science, and Ethics of AI","Twin Cities","Introduction to modern artificial intelligence. Trace the evolution of AI from early neural networks to large language models. Explore building apps using AI “vibe coding.” Examine core ethical challenges, including bias, authorship, societal risks, and environmental impacts. 
+
+Students with limited prior coding experience are encouraged to take CSCI 1521 concurrently. CSCI 1521 is a 1-credit course where students will learn basic coding principles in the programming language Python, tailored to the needs of CSCI 2521.","3","3","No","1","3","A-F - A-F Grade Basis","-","Every Fall"
+"CSCI","2915","Teaching Methods in Computer Science","Twin Cities","This is a seminar on teaching and learning for undergraduate teaching assistants (TAs) of CSci classes. Enrollment is by instructor or department permission. The course's main goal is to help TAs improve their knowledge of teaching and learning in computer science so they can be effective TAs. Topics covered include educational issues in computer science, TA professionalism, best practices in giving effective feedback, inclusive teaching, online teaching and learning, and how to communicate well with students and other course staff. Its secondary goals are to help TAs improve their own communication skills, leadership skills, and knowledge of computer science as a field.","1","1","No","1","1","S-N - S-N Grade Basis","-","Every Spring"
+"CSCI","2980","Special Topics in Computer Science","Twin Cities","Special topics. Lectures, informal discussions.","1","4","Yes","2","8","AFV - A-F or Audit","-","Periodic Fall & Spring"
+"CSCI","2999","Special Exam","Twin Cities","-","4","4","No","1","4","OPT - Student Option","-","-"
+"CSCI","3003","Introduction to Computing in Biology","Twin Cities","This course builds computational skills needed to carry out basic data analysis tasks common in modern biology. Students will learn computing concepts (algorithm development, data structures, complexity analysis) along with practical programming skills in Python and R. No previous programming knowledge assumed. 
+
+Prereq: introductory biology course.","3","3","No","1","3","OPT - Student Option","-","Every Spring"
+"CSCI","3041","Introduction to Discrete Structures and Algorithms","Twin Cities","Overview of strategies and techniques for the design and analysis of algorithms. Logic and proof techniques, asymptotic notation, recurrences, graphs, and relations. Algorithm design strategies and examples from graph algorithms, greedy, divide-and-conquer, and dynamic programming. This course is intended for non-CS Majors. 
+
+Prereq: CSci 2081 ","4","4","No","1","4","OPT - Student Option","012983","Every Fall & Spring"
+"CSCI","3061","Introduction to Computer Systems","Twin Cities","Overview of the organization and interfaces of computing systems. Basics of machine organization, data representation, memory hierarchy and assembly language/ISA. Systems programming in C/C++, including memory management, files, processes and interprocess communication. This course is intended for non-CS Majors.
+
+prereq: CSci 2081","4","4","No","1","4","OPT - Student Option","012983","Every Fall & Spring"
+"CSCI","3081W","Program Design and Development","Twin Cities","Principles of programming design/analysis. Concepts in software development. Uses a programming project to illustrate key ideas in program design/development, data structures, debugging, files, I/O, testing, and coding standards.  
+
+prereq: (CSci 2021, CSCI 2041, CSci upper div) or CSci grad or department consent","4","4","No","1","4","OPT - Student Option","013488","Every Fall & Spring"
+"CSCI","3901","Introduction to Undergraduate Research in Computer Science","Twin Cities","This seminar will prepare students to engage in undergraduate research in computer science by introducing and exploring the cycle involved in academic research. Students will learn how to access, read and evaluate credible literature, develop a research problem and hypothesis, select an appropriate methodology, and how to write a short research proposal. Students will engage with departmental research faculty through research talks and will explore and apply for research programs that are available (e.g. URGO, McNair, DREU.) Students will know what research entails, how it is performed, and why it can enhance an undergraduate experience.","1","1","No","1","1","S-N - S-N Grade Basis","-","Every Spring"
+"CSCI","3901H","Introduction to Undergraduate Research in Computer Science","Twin Cities","This seminar will prepare students to engage in undergraduate research in computer science by introducing and exploring the cycle involved in academic research. Students will learn how to access, read and evaluate credible literature, develop a research problem and hypothesis, select an appropriate methodology, and how to write a short research proposal. Students will engage with departmental research faculty through research talks and will explore and apply for research programs that are available (e.g. URGO, McNair, DREU.) Students will know what research entails, how it is performed, and why it can enhance an undergraduate experience.","1","1","No","1","1","A-F - A-F Grade Basis","-","Every Spring"
+"CSCI","3921W","Social, Legal, and Ethical Issues in Computing","Twin Cities","Impact of computers on society. Computer science perspective of ethical, legal, social, philosophical, political, and economic aspects of computing.
+
+prereq: At least soph or instr consent","3","3","No","1","3","OPT - Student Option","000972","Every Fall"
+"CSCI","3923","Ethics in Computing","Twin Cities","An introduction to ethics and computing, including ethical principles and codes, professional conduct and responsibilities, basics of topics such as freedom of speech and intellectual property, computing and current societal issues, data collection and privacy issues, fairness and related issues, and benefits and harms of computing systems.
+
+PreReq: [(CSci BA OR CSci BS OR DSci BS) AND (Junior or Senior Standing)]","1","1","No","1","1","OPT - Student Option","012524","Every Fall & Spring"
+"CSCI","4011","Formal Languages and Automata Theory","Twin Cities","Logical/mathematical foundations of computer science. Formal languages, their correspondence to machine models. Lexical analysis, string matching, parsing. Decidability, undecidability, limits of computability. Computational complexity.
+
+prereq: 2041 ","4","4","No","1","4","OPT - Student Option","013215","Every Fall & Spring"
+"CSCI","4041","Algorithms and Data Structures","Twin Cities","Rigorous analysis of algorithms/implementation. Algorithm analysis, sorting algorithms, binary trees, heaps, priority queues, heapsort, balanced binary search trees, hash tables and hashing, graphs, graph traversal, single source shortest path, minimum cost spanning trees.
+
+prereq: [(CSCI 1913 or CSCI 1933 or CSCI 1933H) and CSCI 2011] or Graduate Student Standing","4","4","No","1","4","OPT - Student Option","013954","Every Fall & Spring"
+"CSCI","4061","Introduction to Operating Systems","Twin Cities","Processes/threads, process coordination, interprocess communication, asynchronous events, memory management/file systems. Systems programming projects using operating system interfaces and program development tools.
+
+prereq: 2021 or EE 2361; CS upper div, CompE upper div., EE upper div., EE grad, ITI upper div., or dept. permission; no cr for grads in CSci.","4","4","No","1","4","OPT - Student Option","009289","Every Fall & Spring"
+"CSCI","4115","User Interface Design and Prototyping","Twin Cities","Provides an introduction to the design, prototyping, and evaluation of user experience with interactive digital systems. Topics include human capabilities and limitations, formative user research, design thinking, interface design and engineering, low- to high-fidelity prototyping, and user experience evaluation. This course is built around a semester-long group project with multiple deliverables milestones.
+
+PreReq: (CSCI 1913 or CSCI 1933 or CSCI 2081) and upper division standing","4","4","No","1","4","OPT - Student Option","013925","Every Fall & Spring"
+"CSCI","4131","Internet Programming","Twin Cities","Issues in internet programming. Internet history, architecture/protocols, network programming, Web architecture. Client-server architectures and protocols. Client-side programming, server-side programming, dynamic HTML, Java programming, object-oriented architecture/design, distributed object computing, Web applications.
+
+prereq: [CSCI 1133 OR CSCI 1913] AND CSCI 4061. Cannot be taken for grad CSci cr.","3","3","No","1","3","OPT - Student Option","013025","Every Fall & Spring"
+"CSCI","4203","Computer Architecture","Twin Cities","Introduction to computer architecture. Aspects of computer systems, such as pipelining, memory hierarchy, and input/output systems. Performance metrics. Examins each component of a complicated computer system.
+
+prereq: CSCI 2021 ","4","4","No","1","4","OPT - Student Option","013065","Every Fall & Spring"
+"CSCI","4211","Introduction to Computer Networks","Twin Cities","Concepts, principles, protocols, and applications of computer networks. Layered network architectures, data link protocols, local area networks, routing, transport, network programming interfaces, networked applications. Examples from Ethernet, Token Ring, TCP/IP, HTTP, WWW.
+
+prereq: CSci 2021 or CSci 3061 or EE 2361","3","3","No","1","3","OPT - Student Option","013023","Every Fall & Spring"
+"CSCI","4271W","Development of Secure Software Systems","Twin Cities","Overview of threat modeling and security assessment in the design and development of software systems. Techniques to identify, exploit, detect, mitigate, and prevent software vulnerabilities at the design, coding, application, compiler, operating system, and networking layers. Methods for effectively communicating system designs and vulnerabilities. 
+
+prereq: CSCI 3081W (CSCI 4061 recommended but not required)","4","4","No","1","4","AFV - A-F or Audit","013018","Every Spring"
+"CSCI","4481","Computational Techniques for Genomics","Twin Cities","Techniques to analyze biological data generated by DNA sequencing. Algorithms for single/multiple sequence alignments/assembly. Search algorithms for sequence databases, phylogenetic tree construction algorithms. Algorithms for taxonomic annotation. Algorithms for gene/promoter, protein structure, and RNA folding prediction. Ethics in genomics research. Deep learning algorithms for computational biology. Hands-on data analysis projects.
+
+prereq: CSci 3003 or 3041 or 4041","4","4","No","1","4","OPT - Student Option","012977","Every Fall"
+"CSCI","4511W","Introduction to Artificial Intelligence","Twin Cities","Agents. Problem-solving using search algorithms. Knowledge representation and inference using formal logic. Knowledge graphs. Planning. Introduction to machine learning. Cannot be taken for grad CSci credit.
+
+co-requisite: CSci 4041","4","4","No","1","4","OPT - Student Option","013047","Every Fall & Spring"
+"CSCI","4521","Applied Machine Learning for Computer and Data Scientists","Twin Cities","An introduction to solving problems with machine learning. Applications of linear algebra, statistical models, non-parametric models (such as clustering, KNN), and non-linear/deep regression & classification. Emphasis is on hands-on experience using modern machine learning libraries to work with numerical data, text, and images.
+
+Prereq: (CSCI 1133 and (CSCI 2033 or MATH 2243/2373/2471/2574H))  or (MATH 4242 and (CSCI 2011 or CSCI 3041 or MATH 2283/2283W))","3","3","No","1","3","OPT - Student Option","013038","Every Fall & Spring"
+"CSCI","4541","Introduction to Natural Language Processing","Twin Cities","The purpose of this course is to provide an introduction to the computational techniques developed to enable computers to interpret and respond appropriately to ideas expressed using natural languages, rather than formal languages, such as C++ or Python. This course will cover text classification, distributional representation methods of language and statistical language models. The course will cover a wide range of topics related to NLP, including theories, computational models, and applications with their societal and ethical impacts.
+
+Prereq: CSci 4041","4","4","No","1","4","OPT - Student Option","012972","Every Fall & Summer"
+"CSCI","4551","Introduction to Computational Robotics","Twin Cities","An introductory undergraduate course in robotics that focuses on foundational skills, conceptual understanding, and simulation-based learning, focusing on the sense-plan-act model of robotics. This course will cover the basics of sensors and perception, simple decision-making algorithms and basic state estimation techniques, fundamentals of robot kinematics and control, and how robots execute actions based on sensor inputs and their decision-making processes.","4","4","No","1","4","OPT - Student Option","013413","Every Spring"
+"CSCI","4611","Programming Interactive Computer Graphics and Games","Twin Cities","Tools/techniques for programming games/interactive computer graphics. Event loops, rendering/animation, polygonal models, texturing, physical simulation. Modern graphics toolkits. History/future of computer games technology. Social impact of interactive computer graphics.
+
+
+prereq: coreq CSci 2033 and (CSci 2041 or CSci 2081 or CSci 3081W)","3","3","No","1","3","OPT - Student Option","013024","Every Spring"
+"CSCI","4707","Practice of Database Systems","Twin Cities","Concepts, conceptual data models, case studies, common data manipulation languages, logical data models, database design, facilities for database security/integrity, applications.
+
+prereq: none","3","3","No","1","3","OPT - Student Option","-","Every Fall & Spring"
+"CSCI","4801","Software Development Process","Twin Cities","Introduction to software development processes. Software life cycle, development models, software requirements analysis, software design, coding, testing and maintenance.","4","4","No","1","4","OPT - Student Option","013498","Every Fall & Spring"
+"CSCI","4821","GenAI for Software Engineering","Twin Cities","An introduction to the applications of generative AI in software engineering, combining theoretical foundations with practical experience. Topics include AI-assisted requirements analysis, design, coding, testing, and maintenance. Students gain practical experience with contemporary tools and learn their impact on software engineering practice.
+
+prereq:  CSCI 2081or CSCI 3081W or Instructor Consent.","3","3","No","1","3","OPT - Student Option","013885","Every Fall & Spring"
+"CSCI","4921","History of Computing","Twin Cities","Developments in last 150 years; evolution of hardware and software; growth of computer and semiconductor industries and their relation to other businesses; changing relationships resulting from new data-gathering and analysis techniques; automation; social and ethical issues.  ","3","3","No","1","3","OPT - Student Option","-","Fall Even Year"
+"CSCI","4950","Senior Software Project","Twin Cities","Student teams develop a software system, distribute system to users, and extend/maintain it in response to their needs.  Software engineering techniques. Software development, team participation, leadership.
+
+prereq: Upper div CSci, instr consent","3","3","Yes","2","6","A-F - A-F Grade Basis","-","Every Fall & Spring"
+"CSCI","4970W","Advanced Project Laboratory","Twin Cities","Formulate and solve open-ended project: design, implement, interface, document, test. Team work strongly encouraged. Arranged with CSci faculty.
+
+prereq: Upper div CSci, 4061, instr consent; cannot be taken for grad cr","3","3","Yes","3","9","OPT - Student Option","-","Every Fall & Spring"
+"CSCI","4980","Special Topics in Computer Science for Undergraduates","Twin Cities","Lectures and informal discussions on current topics in computer science.
+
+prereq: Undergrad, instr consent; no cr for grads in [CSci or CompE]","1","3","Yes","9","9","AFV - A-F or Audit","-","Periodic Fall & Spring"
+"CSCI","4994H","Honors Thesis","Twin Cities","Research work for an honors thesis arranged with a CS faculty member who is the adviser or coadviser.
+
+prereq: Honors student, instr consent","1","3","Yes","2","6","A-F - A-F Grade Basis","-","Every Fall, Spring & Summer"
+"CSCI","5103","Operating Systems","Twin Cities","Conceptual foundation of operating system design and implementation. Operating system internals including OS structures and algorithms, and their relationship to machine architecture. Real-world OS implementation mechanisms as examples.
+
+prereq: CSCI 4061 or graduate standing","3","3","No","1","3","OPT - Student Option","013072","Every Fall"
+"CSCI","5105","Introduction to Distributed Systems","Twin Cities","Distributed system design and implementation. Distributed communication and synchronization, data replication and consistency, distributed file systems, fault tolerance, and distributed scheduling.
+
+prereq: 4061 or 5103 or instr consent","3","3","No","1","3","OPT - Student Option","012984","Periodic Spring"
+"CSCI","5106","Programming Languages","Twin Cities","Design and implementation of high-level languages. Course has two parts: (1) language design principles, concepts, constructs; (2) language paradigms, applications. Note: course does not teach how to program in specific languages.
+
+prereq: 4011 or instr consent","3","3","No","1","3","OPT - Student Option","001186","Every Fall"
+"CSCI","5115","User Interface Evaluation","Twin Cities","User interfaces to computer systems can have wide-ranging problems that make them error-prone, difficult to learn, difficult to use, and otherwise unsuitable for the purposes for which they are designed and deployed. This course introduces a variety of interface evaluation techniques, including non-user- and user-based methods, formative and summative evaluation methods, and both designed experiments and log- and data-analytic methods for evaluating interfaces and identifying problems and potential improvements. In this course, students will come to understand the different purposes of interface evaluation and the suitability of different techniques to different purposes and contexts. Students will practice several techniques and perform a variety of interface evaluations.
+
+Students should have some familiarity with user interface design prior to taking this course. This can be completed through CSci 4115, UX 3131, or equivalent courses taken elsewhere. 
+
+prereq: CSci 4115 or UX 3131 or Graduate Standing","3","3","No","1","3","OPT - Student Option","013952","Every Fall"
+"CSCI","5117","Developing the Interactive Web","Twin Cities","Hands-on design experience using modern web development tools. Students work in teams to develop software programs using each of four toolkits. Analyze developments in forum posts and classroom discussions.
+
+prereq: CSCI 4131 or Grad Standing","3","3","No","1","3","OPT - Student Option","012974","Spring Even Year"
+"CSCI","5123","Recommender Systems","Twin Cities","An overview of recommender systems, including content-based and collaborative algorithms for recommendation, programming of recommender systems, and evaluation and metrics for recommender systems.
+
+Graduate Status OR 
+CSCI 2033 AND (CSCI 3081W OR CSCI 3061) OR
+Instructor Permission","3","3","No","1","3","OPT - Student Option","012979","Fall Odd Year"
+"CSCI","5125","Collaborative and Social Computing","Twin Cities","Introduction to computer-supported cooperative work, social computing. Technology, research methods, theory, case studies of group computing systems. Readings, hands-on experience.
+
+prereq: CSci 5115 OR grad status OR instructor permission","3","3","No","1","3","OPT - Student Option","012976","Spring Even Year"
+"CSCI","5127W","Embodied Computing: Design & Prototyping","Twin Cities","In this course, you will learn and apply the principles of embodied computing to human-centered challenges. Through a semester-long team project, you will learn and demonstrate mastery of human-centered embodied computing through two phases: (1) investigating human needs and current embodied practices and (2) rapidly prototyping and iterating embodied computing solutions. One of the ways you will demonstrate this mastery is through the collaborative creation of a written document and project capstone video describing your process and prototype.","3","3","No","1","3","OPT - Student Option","-","Fall Even Year"
+"CSCI","5143","Real-Time and Embedded Systems","Twin Cities","Description: Introduction to embedded software design and implementation. Microcontroller programming in C, digital and analog I/O, hardware communication protocols. Embedded scheduling, timers, and interrupts. Real-time issues and system design. Low-power wireless networking.
+
+prereq: CSCI 4061 or Instructor Consent.","3","3","No","1","3","A-F - A-F Grade Basis","013077","Periodic Spring"
+"CSCI","5144","Cloud Computing","Twin Cities","Cloud computing serves many large-scale applications, ranging from search engines like Google to social networking websites like Facebook to online stores like Amazon. More recently, cloud computing has emerged as an essential technology to enable emerging fields such as Artificial Intelligence (AI), the Internet of Things (IoT), and Machine Learning. The exponential growth of data availability and demands for security and speed has made the cloud computing paradigm necessary for reliable, financially economical, and scalable computation. The dynamicity and flexibility of Cloud computing have opened up many new forms of deploying applications on infrastructures that cloud service providers offer, such as renting of computational resources and serverless computing.
+
+This course will cover the fundamentals of cloud services management and cloud software development, including but not limited to design patterns, application programming interfaces, and underlying middleware technologies. More specifically, we will cover the topics of cloud computing service models, data center resource management, task scheduling, resource virtualization, SLAs, cloud security, software-defined networks and storage, cloud storage, and programming models. We will also discuss data center design and management strategies, which enable the economic and technological benefits of cloud computing. Lastly, we will study cloud storage concepts like data distribution, durability, consistency, and redundancy.
+
+PreReq: CSCI 3061 OR CSCI 4061 OR Graduate Student Standing","3","3","No","1","3","OPT - Student Option","013751","Periodic Fall & Spring"
+"CSCI","5161","Introduction to Compilers","Twin Cities","Techniques for translating modern programming languages to intermediate forms or machine-executable instructions/their organization into compiler. Lexical analysis, syntax analysis, semantic analysis, data flow analysis, code generation. Compiler project for prototypical language.
+
+prereq: [2021, 5106] or instr consent","3","3","No","1","3","OPT - Student Option","001186","Every Spring"
+"CSCI","5204","Advanced Computer Architecture","Twin Cities","Instruction set architecture, processor microarchitecture, memory, I/O systems. Interactions between computer software and hardware. Methodologies of computer design.
+
+prereq: CSCI 4203 or EE 4363 or graduate standing","3","3","No","1","3","OPT - Student Option","012986","Every Fall"
+"CSCI","5211","Data Communications and Computer Networks","Twin Cities","Concepts, principles, protocols, and applications of computer networks. Layered network architectures, data link protocols, local area networks, network layer/routing protocols, transport, congestion/flow control, emerging high-speed networks, network programming interfaces, networked applications. Case studies using Ethernet, Token Ring, FDDI, TCP/IP, ATM, Email, HTTP, and WWW.
+
+prereq: grad student","3","3","No","1","3","OPT - Student Option","000017","Every Fall"
+"CSCI","5221","Foundations of Advanced Networking","Twin Cities","Design principles, protocol mechanisms. Network algorithmics, implementation techniques. Advanced network architectures, state-of-art/emerging networking technologies/applications, network modeling. Simulation, experiments.
+
+prereq: 4211 or 5211 or equiv; intro course in computer networks recommended","3","3","No","1","3","OPT - Student Option","-","Spring Even Year"
+"CSCI","5271","Introduction to Computer Security","Twin Cities","Concepts of computer, network, and information security.
+Risk analysis, authentication, access control, security evaluation, audit trails, cryptography, network/database/application security, viruses, firewalls.
+
+prereq: CSci 4061 or CSci 5103 or Grad Standing","3","3","No","1","3","OPT - Student Option","012971","Every Fall"
+"CSCI","5302","Analysis of Numerical Algorithms","Twin Cities","Additional topics in numerical analysis. Interpolation, approximation, extrapolation, numerical integration/differentiation, numerical solutions of ordinary differential equations. Introduction to optimization techniques.
+
+prereq: CSCI 2033 OR Math 2142 OR Math 2243 OR Math 2373 OR Math 4242 OR Grad Standing","3","3","No","1","3","OPT - Student Option","012973","Every Spring"
+"CSCI","5304","Computational Aspects of Matrix Theory","Twin Cities"," Background in Linear Algebra: subspaces, ranks, vector, and matrix norms.  Perturbation theory for linear systems and eigenvalue problems. Solution methods of linear systems and least-squares problems. Matrix factorizations. Computation of eigenvalues/eigenvectors. Singular value decomposition. Matlab and/or Python/numpy for demonstrating algorithms. Introduction to sparse matrix methods.
+
+prereq: csci2033 or math2142 or math2243 or math2373 or math4242 ","3","3","No","1","3","OPT - Student Option","012973","Every Fall"
+"CSCI","5421","Advanced Algorithms and Data Structures","Twin Cities","Fundamental paradigms of algorithm and data structure design. Divide-and-conquer, dynamic programming, greedy method, graph algorithms, amortization, priority queues and variants, search structures, disjoint-set structures. Theoretical underpinnings. Examples from various problem domains.prereq: CSCI 4041 or Grad Standing","3","3","No","1","3","OPT - Student Option","012972","Every Fall & Spring"
+"CSCI","5451","Introduction to Parallel Computing: Architectures, Algorithms, and Programming","Twin Cities","Parallel architectures design, embeddings, routing. Examples of parallel computers. Fundamental communication operations. Performance metrics. Parallel algorithms for sorting. Matrix problems, graph problems, dynamic load balancing, types of parallelisms. Parallel programming paradigms. Message passing programming in MPI. Shared-address space programming in openMP or threads.","3","3","No","1","3","OPT - Student Option","001186","Every Spring"
+"CSCI","5461","Functional Genomics, Systems Biology, and Bioinformatics","Twin Cities","Computational methods for analyzing, integrating, and
+deriving predictions from genomic/proteomic data. Analyzing gene expression, proteomic data, and protein-protein interaction networks. Protein/gene function prediction, integrating diverse data, visualizing genomic datasets.
+
+prereq: (CSCI 3041, CSCI 4041, CSCI 3003, or CSCI 5465) or Grad Standing","3","3","No","1","3","OPT - Student Option","013011","Every Spring"
+"CSCI","5465","Introduction to Computing for Biologists","Twin Cities","This course is designed for graduate students in biology or other related sciences that wish to learn fundamental computing skills that will enable them to develop their own computational approaches for meaningful interpretation of scientific data. Students will complete programming assignments in Python and R. No previous programming knowledge assumed. 
+
+Prereq: BICB MS OR BICB PhD OR non-CSE student","3","3","No","1","3","OPT - Student Option","-","Fall Odd Year"
+"CSCI","5471","Modern Cryptography","Twin Cities","Introduction to cryptography. Theoretical foundations, practical applications. Threats, attacks, and countermeasures, including cryptosystems and cryptographic protocols. Secure systems/networks. History of cryptography, encryption (conventional, public key), digital signatures, hash functions, message authentication codes, identification, authentication, applications.
+
+prereq: CSci 4041 or Grad Standing","3","3","No","1","3","OPT - Student Option","012972","Periodic Fall & Spring"
+"CSCI","5481","Computational Techniques for Genomics","Twin Cities","Techniques to analyze biological data generated by genome sequencing, proteomics, and cell-wide measurements of gene expression changes. Algorithms for single/multiple sequence alignments/assembly. Search algorithms for sequence databases, phylogenetic tree construction algorithms. Algorithms for gene/promoter and protein structure prediction. Data mining for microarray expression analysis. Reverse engineering of regulatory networks.
+
+prereq: CSCI 3003 OR CSCI 3041 OR CSCI 4041","3","3","No","1","3","OPT - Student Option","012977","Every Fall"
+"CSCI","5511","Artificial Intelligence I","Twin Cities","Introduction to AI. Problem solving, search, inference techniques. Logic/theorem proving. Knowledge representation, rules, frames, semantic networks. Planning/scheduling.
+
+prereq: graduate student standing","3","3","No","1","3","OPT - Student Option","000017","Every Fall"
+"CSCI","5512","Artificial Intelligence II","Twin Cities","Uncertainty in artificial intelligence. Probability as a model of uncertainty, methods for reasoning/learning under uncertainty, utility theory, decision-theoretic methods.
+
+Prereq: ((Stat 3021 or IE 3521 or EE 3025), (CSci 3041 or 4041)) or Graduate Student Standing","3","3","No","1","3","OPT - Student Option","013469","Every Spring"
+"CSCI","5521","Machine Learning Fundamentals","Twin Cities","Problem formulations and concepts of generalization, overfitting/under-fitting, and model selection. Statistical foundations: maximum likelihood, maximum a posteriori, Expectation Maximization (EM), Bayesian estimation, and non parametric methods. Mathematical foundations and optimization: gradient descent, back propagation, regularization, quadratic programming. Perceptrons, neural networks, and deep learning methods. Kernel methods and Support Vector Machines (SVMs). Machine Learning ethics.
+
+prereq: Update: (CSCI 2033 OR MATH 4242) AND (STAT 3021 OR EE 3025 OR IE 3521), OR Graduate Student Standing","3","3","No","1","3","OPT - Student Option","013404","Every Fall & Spring"
+"CSCI","5523","Introduction to Data Mining","Twin Cities","Data pre-processing techniques, data types, similarity measures, data visualization/exploration. Predictive models (e.g., decision trees, SVM, Bayes, K-nearest neighbors, bagging, boosting). Model evaluation techniques, Clustering (hierarchical, partitional, density-based), association analysis, anomaly detection. Case studies from areas such as earth science, the Web, network intrusion, and genomics. Hands-on projects.
+
+prereq: 4041 or equiv or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Fall & Spring"
+"CSCI","5525","Machine Learning: Analysis and Methods","Twin Cities","Models of learning. Supervised algorithms such as perceptrons, logistic regression, and large margin methods (SVMs, boosting). Hypothesis evaluation. Learning theory. Online algorithms such as winnow and weighted majority. Unsupervised algorithms, dimensionality reduction, spectral methods. Graphical models.
+
+prereq: CSci 5521 or equivalent","3","3","No","1","3","OPT - Student Option","012034","Fall Even Year"
+"CSCI","5526","Machine Learning for Healthcare: Concepts and Applications","Twin Cities","Introduction to machine learning (ML) in healthcare with focus on various health data modalities, ML paradigms, and the unique challenges of health applications. Topics include risk stratification, disease progression models, diagnosis, prognosis, subtype discovery, medical image analysis, and clinical text mining. Course includes coding exercises using real-world health data and a final project.
+
+PreReqs: CSCI 4521 OR 5521 OR 5523 OR Instructor Consent
+","3","3","No","1","3","OPT - Student Option","013533","Periodic Fall & Spring"
+"CSCI","5527","Deep Learning: Models, Computation, and Applications","Twin Cities","This course introduces the basic ingredients of deep learning, describes effective models and computational principles, and samples important applications. Topics include universal approximation theorems, basics of numerical optimization, auto-differentiation, convolution neural networks, recurrent neural networks, generative neural networks, representation learning, and deep reinforcement learning. 
+
+prereq: CSCI 5521 
+
+Maturity in linear algebra, calculus, and basic probability is assumed. Familiarity with Python is necessary to complete the homework assignments and final project. ","3","3","No","1","3","OPT - Student Option","012034","Every Fall"
+"CSCI","5541","Natural Language Processing","Twin Cities","The purpose of this course is to provide an overview of the computational techniques developed to enable computers to interpret and respond appropriately to ideas expressed using natural languages, rather than formal languages, such as C++ or Python. This course will cover text classification, distributional representation methods of language, large language models, and advanced techniques in chatGPT. The course will cover a wide range of topics related to NLP, including theories, computational models, and applications with their societal and ethical impacts.","3","3","No","1","3","OPT - Student Option","012034","Periodic Spring"
+"CSCI","5551","Introduction to Intelligent Robotic Systems","Twin Cities","Transformations, forward and inverse kinematics, Jacobians. Path planning, motion control, reactive controllers, configuration spaces, sampling-based planning, potential fields. Mobile Robots, control, sensing for robotics, and programming.
+
+Prereq: CSci 4551 or graduate student standing","3","3","No","1","3","OPT - Student Option","013464","Periodic Fall"
+"CSCI","5552","Sensing and Estimation in Robotics","Twin Cities","Bayesian estimation, maximum likelihood estimation, Kalman filtering, particle filtering. Sensor modeling and fusion. Mobile robot motion estimation (odometry, inertial,laser scan matching, vision-based) and path planning. Map representations, landmark-based localization, Markov localization, simultaneous localization/mapping (SLAM), multi-robot localization/mapping.
+
+prereq: [5551, Stat 3021] or instr consent","3","3","No","1","3","OPT - Student Option","001186","Periodic Spring"
+"CSCI","5561","Computer Vision","Twin Cities","Issues in perspective transformations, edge detection, image filtering, image segmentation, and feature tracking. Complex problems in shape recovery, stereo, active vision, autonomous navigation, shadows, and physics-based vision and applications.
+
+Prereq: CSci 4521 or 5521 or Graduate Student Standing","3","3","No","1","3","OPT - Student Option","013458","Every Spring"
+"CSCI","5563","Multiview 3D Geometry in Computer Vision","Twin Cities","The 3D spatial relationship between cameras and scenes in computer vision. Application to tasks such as planning robots, reconstructing scenes from photos, and understanding human behaviors from body-worn cameras data. Multiview theory fundamentals, structure-from-motion, state-of-the-art approaches, and current research integration.
+
+Prereq: Students enrolling in this course must have completed CSCI 5561 or have instructor consent. ","3","3","No","1","3","AFV - A-F or Audit","-","Every Spring"
+"CSCI","5607","Fundamentals of Computer Graphics 1","Twin Cities","Fundamental algorithms in computer graphics. Emphasizes programming projects in C/C++. Scan conversion, hidden surface removal, geometrical transformations, projection, illumination/shading, parametric cubic curves, texture mapping, antialising, ray tracing. Developing graphics software, graphics research.
+
+prereq: concurrent registration is required (or allowed) in 2033, concurrent registration is required (or allowed) in 3081","3","3","No","1","3","OPT - Student Option","-","Every Fall"
+"CSCI","5608","Fundamentals of Computer Graphics II","Twin Cities","Advanced topics in image synthesis, modeling, rendering. Image processing, image warping, global illumination, non-photorealistic rendering, texture synthesis. Parametric cubic surfaces, subdivision surfaces, acceleration techniques, advanced texture mapping. Programming in C/C++.
+
+prereq: 5607 or instr consent","3","3","No","1","3","OPT - Student Option","001186","Periodic Spring"
+"CSCI","5609","Visualization","Twin Cities","Fundamental theory/practice in data visualization. Programming applications. Perceptual issues in effective data representation, multivariate visualization, information visualization, vector field/volume visualization.
+
+prereq: CSci 4611 or CSci 5607 or CSci 5115 or CSci 5117","3","3","No","1","3","OPT - Student Option","012981","Fall Even Year"
+"CSCI","5611","Animation & Planning in Games","Twin Cities","Theory behind algorithms used to bring virtual worlds to life. Computer animation topics. Real-time, interactive techniques used in modern games. Physically-based animation, motion planning, character animation, simulation in virtual worlds.
+
+prereq: CSCI 5511 (AI) or CSCI 5551 (Robotics) or CSCI 5607 (Comp Graphics 1) or grad standing","3","3","No","1","3","OPT - Student Option","012985","Fall Odd Year"
+"CSCI","5619","Virtual Reality and 3D Interaction","Twin Cities","Introduction to software, technology/applications in virtual/augmented reality, 3D user interaction. Overview of current research. Hands-on projects.
+
+prereq: 4611 or 5607 or 5115 or equiv or instr consent","3","3","No","1","3","OPT - Student Option","-","Spring Odd Year"
+"CSCI","5629","AI-Enabled Mixed Reality","Twin Cities","This course explores the foundations and practice of designing and building AI-enabled Mixed Reality (MR) systems. It covers both the human-centered and technical factors essential for developing such systems. Students will study how AI techniques, such as deep learning models and LLM agents, can be integrated with MR interaction, rendering, perception, and interface design to create intelligent, human-centered immersive systems. 
+
+The course format includes lectures, homework assignments, and semester-long group projects. Designed for graduate students and advanced undergraduates, the course requires strong programming skills. Its goal is to provide students with hands-on experience in designing and building MR systems applicable to a range of domains, including casual interaction, architectural design, robotics collaboration, and interactive entertainment, as well as for future always-on MR systems.
+
+Prereq: (4611 or 5607) OR (CSCI 5619) OR grad student.
+
+Familiarity with virtual reality (CSCI5619), computer graphics (CSCI4611, CSCI5607), data visualization (CSCI5609), user interface (CSCI5115), and computer vision (CSCI 5561, CSCI5563) would be highly recommended.","3","3","No","1","3","A-F - A-F Grade Basis","-","Periodic Fall & Spring"
+"CSCI","5707","Principles of Database Systems","Twin Cities","Concepts, database architecture, alternative conceptual data models, foundations of data manipulation/analysis, logical data models, database designs, models of database security/integrity, current trends.
+
+prereq: [4041 or instr consent], grad student","3","3","No","1","3","OPT - Student Option","000017","Every Fall"
+"CSCI","5708","Architecture and Implementation of Database Management Systems","Twin Cities","Techniques in commercial/research-oriented database systems. Catalogs. Physical storage techniques. Query processing/optimization. Transaction management. Mechanisms for concurrency control, disaster recovery, distribution, security, integrity, extended data types, triggers, and rules.
+
+prereq: 4041 or 4707 or 5707 or instr. consent","3","3","No","1","3","OPT - Student Option","001186","Every Spring"
+"CSCI","5715","From GPS, Google Maps, and Uber to Spatial Data Science","Twin Cities","Spatial databases and querying, spatial big data mining, spatial data-structures and algorithms, positioning, earth observation, cartography, and geo-visulization. Trends such as spatio-temporal, and geospatial cloud analytics, etc.
+
+prereq: none","3","3","No","1","3","OPT - Student Option","-","Spring Even Year"
+"CSCI","5801","Software Engineering Foundations: Requirements and Modeling","Twin Cities","Software engineering is concerned with long-term, typically large scale, programming projects. This course introduces the topic through lectures and by giving the students an opportunity to thoroughly discuss the nature and challenges of software, the fundamental approaches to software development projects, and practice writing requirements and modeling systems. The lectures, assignments, and projects will cover topics in software engineering management, problem specification and analysis, system modeling techniques, and documentation. This course has two goals: providing (1) a solid foundation for further advanced study of software engineering and (2) detailed knowledge about requirements elicitation and specification, and system modeling techniques. 
+
+The students will read and discuss seminal research papers in the software engineering field as well as learn about the latest trends and techniques. Students will be able to understand the difference between different development processes and their pros and cons, appreciate the importance of requirements, and learn how to capture requirements in various ways depending on the needs of the project. Students will learn through reading, discussions, and the application of various techniques to challenge problems.   
+
+Students should have some familiarity with software development and design prior to taking this course.  This can be completed through CSci 3081 or equivalent courses taken elsewhere. 
+
+PreReq: CSci 3081 or Grad Standing","3","3","No","1","3","OPT - Student Option","013932","Every Fall"
+"CSCI","5802","Software Engineering II","Twin Cities","Introduction to software testing, software maturity models, cost specification models, bug estimation, software reliability models, software complexity, quality control, and experience report. Student groups specify, design, implement, and test partial software systems.  Application of general software development methods and principles from 5801.
+
+prereq: (CSCI 2081 and CSCI 3041) or (CSCI 3081) or (Grad Status)","3","3","No","1","3","OPT - Student Option","012978","Periodic Spring"
+"CSCI","5980","Special Topics in Computer Science","Twin Cities","Lectures and informal discussions on current topics in computer science.prereq: instr consent; may be repeated for cr","1","3","Yes","9","27","OPT - Student Option","001186","Periodic Fall & Spring"
+"CSCI","5991","Independent Study","Twin Cities","Independent study arranged with CS faculty member.
+
+prereq: instr consent; may be repeated for cr","1","3","Yes","9","9","OPT - Student Option","001186","Every Fall, Spring & Summer"
+"CSCI","5994","Directed Research","Twin Cities","Directed research arranged with faculty member.
+
+prereq: instr consent; may be repeated for cr","1","3","Yes","9","9","OPT - Student Option","001186","Every Fall, Spring & Summer"
+"CSCI","5996","Curricular Practical Training","Twin Cities","Industrial work assignment involving advanced computer technology.  Reviewed by faculty member. Grade based on final report covering work assignment.
+
+prereq: [CSci or CompE] major, instr consent","1","1","Yes","3","3","SNV - S-N or Audit","-","Every Fall, Spring & Summer"
+"CSCI","8001","Introduction to Research in Computer Science I","Twin Cities","Identity and diversity in computing. Mentoring; selecting/working with an advisor. Program milestones and funding. Policy and research ethics. Ethics of consequences and harms. Tools and frameworks for ethical computing. Enforced Prerequisite: Ph.D. student status.
+
+prereq: 1st yr CS PhD student","1","1","No","1","1","A-F - A-F Grade Basis","002108","Every Fall"
+"CSCI","8002","Introduction to Research in Computer Science, II","Twin Cities","Conducting literature review. Identifying research questions. Writing a research proposal. Research areas in CS. Peer review. Practical research skills. Research ethics. 
+
+Enforced Prerequisite: Ph.D. Student Status. 
+Unenforced Prerequisite: CSci 8001.","2","2","No","1","2","A-F - A-F Grade Basis","002109","Every Spring"
+"CSCI","8101","Advanced Operating Systems","Twin Cities","Successful research systems and existing theory of systems design. Goal is not merely to catalog systems or learn mathematics, but to develop a sense of elegance of design that leads to successful systems.
+
+prereq: 5103 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Fall"
+"CSCI","8102","Foundations of Distributed Computing","Twin Cities","Fundamental principles underlying design of distributed and multiprocessor operating systems. Foundations of distributed computing systems; shared multiprocessor systems.
+
+prereq: 8101 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Spring"
+"CSCI","8115","Human-Computer Interaction and User Interface Technology","Twin Cities","Current research issues in human-computer interaction, user interface toolkits and frameworks, and related areas. Research techniques, model-based development, gesture-based interfaces, constraint-based programming, event processing models, innovative systems, HCI in multimedia systems.
+
+prereq: 5115 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Fall & Spring"
+"CSCI","8117","Understanding the Social Web","Twin Cities","Research on the social web. Read, present, and discuss papers, do homework using social web research techniques such as data analysis and simulation. Semester research project.
+
+prereq: CS grad or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Fall & Spring"
+"CSCI","8161","Advanced Compiler Techniques","Twin Cities","Techniques for uniprocessors and parallel computers. Fundamental program analysis instruments such as data flow analysis and data dependence analysis. Variety of code generation and transformation techniques.
+
+prereq: 4061 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Fall & Spring"
+"CSCI","8205","Parallel Computer Organization","Twin Cities","Design/implementation of multiprocessor systems. Parallel machine organization, system design. Differences between parallel, uniprocessor machines. Programming models. Synchronization/communication. Topologies, message routing strategies. Performance optimization techniques. Compiler, system software issues.
+
+prereq: 5204 or EE 5364 or  instr consent","3","3","No","1","3","OPT - Student Option","-","Every Spring"
+"CSCI","8207","Introduction to Quantum Computing","Twin Cities","The announcement of quantum supremacy marks the beginning of an era of quantum machines solving a problem that classical computers are unable to solve in a realistic amount of time. The NSF has since established three new institutes to address critical challenges in quantum information science. Major tech companies have also launched quantum computing cloud platforms to facilitate research and utilization of quantum computing. In this class, we will cover basic topics of quantum computing, including:
+
+- Qubit
+- Quantum gates and circuits
+- Quantum entanglement
+- Quantum teleportation
+- Quantum algorithms
+- Various topics in quantum computing research","3","3","No","1","3","A-F - A-F Grade Basis","-","Every Fall"
+"CSCI","8211","Advanced Computer Networks and Their Applications","Twin Cities","Current research issues in traffic and resource management, quality-of-service provisioning for integrated services networks (such as next-generation Internet and ATM networks) and multimedia networking.
+
+prereq: 5211 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Fall & Spring"
+"CSCI","8213","Advanced Transportation Technologies Seminar","Twin Cities","Advanced technologies specifically related to transportation. Topics drawn from core science/technology areas of human factors, intelligent vehicles, traffic modeling/management, sensing, communications, and controls.","1","1","No","1","1","SNV - S-N or Audit","-","Periodic Fall & Spring"
+"CSCI","8271","Security and Privacy in Computing","Twin Cities","Recent security/privacy issues in computer systems/networks. Threats, attacks, countermeasures. Security research, authentication, network security, wireless security, computer system security, anonymous system, pseudonym, access control, intrusion detection system, cryptographic protocols. How to pursue research in security and design secure systems.
+
+prereq: [5211, 5103] or instr consent; 5471 or EE 5248 or Math 5248 or equiv recommended","3","3","No","1","3","AFV - A-F or Audit","-","Periodic Fall"
+"CSCI","8314","Sparse Matrix Computations","Twin Cities","Sparsity and sparse matrices. Data structures for sparse matrices. Direct methods for sparse linear systems. Reordering techniques to reduce fill-in such as minimal degree ordering and nested dissection ordering. Iterative methods. Preconditioning algorithms. Algorithms for
+sparse eigenvalue problems and sparse least-squares.
+
+prereq: 5304 or numerical linear algebra course or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Spring"
+"CSCI","8333","FTE: Master's","Twin Cities","(No description)
+
+prereq: Master's student, adviser and DGS consent","1","1","No","1","1","NGA - No Grade Associated","000050","Every Fall, Spring & Summer"
+"CSCI","8363","Numerical Linear Algebra in Data Exploration","Twin Cities","Computational methods in linear algebra, matrix decompositions for linear  equations, least squares, eigenvalue problems, singular value decomposition, conditioning, stability in method for machine learning, large data collections. Principal directions, unsupervised clustering, latent semantic indexing, linear least squares fit. Markov chain models on hyperlink structure.
+
+prereq: 5304 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Spring"
+"CSCI","8442","Computational Geometry and Applications","Twin Cities","Designing efficient algorithms and data structures for geometric problems. Models of computation, convex hulls, geometric duality, multidimensional search, Voronoi diagrams and Delauney triangulations, linear programming 
+in fixed dimensions, lower bound techniques. Applications, advanced topics.
+
+prereq: 5421 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Spring"
+"CSCI","8444","FTE: Doctoral","Twin Cities","(No description)
+
+prereq: Doctoral student, adviser and DGS consent","1","1","No","1","1","NGA - No Grade Associated","000051","Every Fall, Spring & Summer"
+"CSCI","8523","AI for Earth: Monitoring Changes in the Environment via Deep Learning","Twin Cities","Advances in machine learning in conjunction with massive amounts of data from Earth observing satellites offer huge potential for improving our understanding of how the Earth's environment and ecosystems have been changing and how they are being impacted by humans actions and changing climate.  Deep learning approaches, that have had phenomenal success in the domain of computer vision and language/speech translation, hold promise in dealing with environmental problems.  However, due to challenges that are unique to environmental applications, off-the-shelf deep learning techniques developed for related applications such as computer vision often have limited utility.  This class will introduce to the students the promise and challenges in using deep learning techniques to analyze complex, multi-scale, spatio-temporal data for monitoring changes in the Earth and its environment on a global scale.
+
+Prerequisites: CSci 5523, CSci 5521, or equivalent","3","3","No","1","3","OPT - Student Option","-","Spring Even Year"
+"CSCI","8551","Intelligent Agents","Twin Cities","Theories of intelligent agents. Agent architectures; knowledge representation, communication, cooperation, and negotiation among multiple agents; planning and learning; issues in designing agents with a physical body; dealing with sensors and actuators; world modeling.
+
+prereq: 5511 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Fall"
+"CSCI","8581","Big Data in Astrophysics","Twin Cities","This course will introduce key concepts and techniques used to work with large datasets, in the context of the field of astrophysics.
+
+Prerequisites: MATH 2263 and MATH 2243, or equivalent; or instructor consent.
+Suggested: familiarity with astrophysics topics such as star formation and evolution, galaxies and clusters, composition and expansion of the universe, gravitational wave sources and waveforms, and high-energy astrophysics.","4","4","No","1","4","A-F - A-F Grade Basis","-","Every Spring"
+"CSCI","8605","3D Drawing in eXtended Reality Studio/Seminar","Twin Cities","In this studio/seminar course, students do hands-on work with 3D mixed-reality hardware and software (headsets, 3D controllers, both commercial and custom software) to learn a style of digital free-form 3D modeling known as 3D drawing and painting. 
+
+The topic is studied from two complementary perspectives: (1) the creative art/design practice of 3D drawing, and (2) the technical interactive computer graphics tools that make it possible. Students engage equally with both perspectives through a format that combines in-class studio time for learning and practicing 3D drawing skills with demonstrations, readings, and presentations on the latest research in 3D drawing technologies and the 25+ year history of 3D drawing in virtual reality. 
+
+Students complete a final work that is either a creative exploration or a technical exploration of 3D drawing and present their work in a public gallery/demo day at the conclusion of the semester.
+
+Students from multiple disciplines are encouraged to enroll!  
+
+Suggested prerequisites are graduate standing in an art or design discipline (e.g., CLA MFA students, CDes MFA, MS, or PhD in Design students) or graduate coursework or research in 3D computer graphics, HCI, or HRI (e.g., CSci-5607, CSci-5609, CSci-5619, CSci-5115, CSci-5125, CSci-5127W). 
+
+The enforced prerequisite for this course is instructor permission. Students who are interested in registering for or learning more about the course should contact the instructor for more information.","3","3","No","1","3","A-F - A-F Grade Basis","-","Periodic Fall & Spring"
+"CSCI","8615","Visualization and AI: Interpretability, Interactivity, and Beyond","Twin Cities","This course explores the intersection of visualizations and AI, with a particular focus on leveraging visualization techniques to enhance the interpretability and interactivity of AI models, as well as to facilitate effective human-AI collaboration.
+
+This course features a combination of lectures, presentations, and interactive discussions centered on selected papers. You will apply the concepts learned in class through paper digests, hands-on programming exercises, and final projects. 
+
+Prereq: Familiarity with data visualization, javascript, and machine learning  is  highly recommended.","3","3","No","1","3","A-F - A-F Grade Basis","-","Periodic Fall & Spring"
+"CSCI","8666","Doctoral Pre-Thesis Credits","Twin Cities","tbd
+
+prereq: Doctoral student who has not passed prelim oral; no required consent for 1st/2nd registrations, up to 12 combined cr; dept consent for 3rd/4th registrations, up to 24 combined cr; doctoral student admitted before summer 2007 may register up to four times, up to 60 combined cr","1","6","Yes","2","12","NGA - No Grade Associated","002371","Every Fall, Spring & Summer"
+"CSCI","8701","Overview of Database Research","Twin Cities","Research papers from journals and conferences on current topics in databases, such as database research methodologies, relational implementation techniques, active databases, storage systems, benchmarking, distributed and parallel databases, new data models, prototype systems, data mining, and future directions.
+
+prereq: 5708 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Fall & Spring"
+"CSCI","8715","Spatial Data Science Research","Twin Cities","Motivation, models of spatial information, querying spatial data, processing strategies for spatial queries, multi-dimensional storage/access methods, spatial graph datasets, spatial data mining, trends (e.g., spatio-temporal databases, mobile objects, raster databases), research literature, how to pursue research.
+
+prereq: 4707 or 5707 or 5715 or GIS 5571 or GIS 5573","3","3","No","1","3","OPT - Student Option","-","Periodic Fall & Spring"
+"CSCI","8725","Databases for Bioinformatics","Twin Cities","DBMS support for biological databases, data models. Searching integrated public domain databases. Queries/analyses, DBMS extensions, emerging applications.
+
+prereq: 4707 or 5707 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Spring"
+"CSCI","8735","Advanced Database Systems","Twin Cities","Database systems for emerging applications, nontraditional query processors, multi-dimensional data indexing. Current research trends.
+
+prereq: 4707 or 5707 or 5708","3","3","No","1","3","AFV - A-F or Audit","-","Periodic Fall"
+"CSCI","8760","Plan B Project","Twin Cities","Project arranged between student and faculty.
+
+prereq: CSci MS student, instr consent","3","3","No","1","3","SNV - S-N or Audit","000297","Every Fall & Spring"
+"CSCI","8777","Thesis Credits: Master's","Twin Cities","(No description)
+
+prereq: Max 18 cr per semester or summer; 10 cr total required [Plan A only]","1","18","Yes","10","50","NGA - No Grade Associated","-","Every Fall, Spring & Summer"
+"CSCI","8801","Advanced Software Engineering","Twin Cities","Software reusability, internet/intranet programming, software reengineering, and software safety.
+
+prereq: 5801 or instr consent","3","3","No","1","3","OPT - Student Option","-","Periodic Fall & Spring"
+"CSCI","8888","Thesis Credit: Doctoral","Twin Cities","Doctoral thesis credit course
+
+prereq: Max 18 cr per semester or summer; 24 cr required","1","24","Yes","10","100","NGA - No Grade Associated","009272","Every Fall, Spring & Summer"
+"CSCI","8970","Computer Science Colloquium","Twin Cities","Recent developments in computer science and related disciplines. Students must attend 13 of the 15 lectures.","1","1","No","1","1","SNV - S-N or Audit","-","Every Fall & Spring"
+"CSCI","8980","Special Advanced Topics in Computer Science","Twin Cities","Lectures and informal discussions.prereq: instr consent","1","3","Yes","9","27","OPT - Student Option","-","Every Fall & Spring"
+"CSCI","8991","Independent Study","Twin Cities","Independent study with professor.
+
+prereq: instr consent","1","3","Yes","9","9","OPT - Student Option","-","Every Fall & Spring"
+"CSCI","8994","Directed Research in Computer Science","Twin Cities","Directed research with professor.
+
+prereq: instr consent","1","3","Yes","9","9","OPT - Student Option","-","Every Fall & Spring"
