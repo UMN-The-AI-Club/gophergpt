@@ -3,7 +3,7 @@ def chunk_text(text: str, chunk_size: int = 400, overlap: int = 50) -> list[dict
     Splits a long string of text into smaller overlapping passages (chunks).
 
     Called by the indexer after scraping a UMN page — the raw page text gets
-    passed here before being embedded and stored in ChromaDB. Smaller chunks
+    passed here before being embedded and stored in pgvector. Smaller chunks
     produce more precise search results than storing a whole page as one document.
 
     Each returned dict will have:

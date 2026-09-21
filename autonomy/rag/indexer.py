@@ -172,7 +172,7 @@ async def run_indexing() -> None:
     Called by scripts/run_indexing.py to trigger a full re-index offline, and by
     the startup hook in webservice/app.py when the catalog is not yet indexed.
     Loads course documents, then passes them through index_source() to chunk,
-    embed, and store in ChromaDB.
+    embed, and store in Postgres (pgvector).
     """
 
     documents = await load_catalog_documents()

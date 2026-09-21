@@ -1,5 +1,9 @@
 # GopherGPT — Demo Script
 
+> For a short stakeholder meeting, use **`DEMO_15MIN.md`** instead — it's a
+> pitch with six prompts and talking points. This file is the full capability
+> tour.
+
 A 5–7 minute walkthrough that exercises **every tool** the assistant has. Each
 prompt below is chosen to reliably trigger one specific capability. Type them
 into the chat at http://localhost:3000.
@@ -12,8 +16,8 @@ into the chat at http://localhost:3000.
 
 ```bash
 # from the repo root
-docker compose up -d           # backend :8000, frontend :3000, chromadb :8001
-bash scripts/demo_check.sh     # health check + warms the 14b model
+docker compose up -d           # backend :8000, frontend :3000, postgres :5432, redis :6379
+bash scripts/demo_check.sh     # health check for every card + tool path (incl. RAG)
 ```
 
 `demo_check.sh` must print all ✓.

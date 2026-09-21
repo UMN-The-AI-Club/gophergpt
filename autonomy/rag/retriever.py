@@ -39,7 +39,7 @@ async def rewrite_query(question: str, history: list[dict]) -> str:
 
 async def retrieve(question: str, history: list[dict] = [], top_k: int = 5, where: dict | None = None) -> tuple[list[dict], str]:
     """
-    Retrieves relevant document chunks from ChromaDB for a given question.
+    Retrieves relevant document chunks from the pgvector store for a given question.
 
     If conversation history is provided, the question is rewritten first
     to be self-contained, improving retrieval accuracy
@@ -47,8 +47,8 @@ async def retrieve(question: str, history: list[dict] = [], top_k: int = 5, wher
     Args:
         question: the user's question to retrieve context for
         history: prior conversation messages from query rewriting
-        top_k: number of chunks to retrieve from ChromaDB
-        where: optional ChromaDB metadata filter, e.g. {"source_url": "catalog:CSCI1133"} for exact course lookups
+        top_k: number of chunks to retrieve from the vector store
+        where: optional metadata filter, e.g. {"source_url": "catalog:CSCI1133"} for exact course lookups
 
     Example:
         (

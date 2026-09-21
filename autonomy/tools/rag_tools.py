@@ -71,8 +71,8 @@ async def _retrieve_chunks(query: str, top_k: int = 5, where: dict | None = None
 
     Args:
         query: the user's question (e.g., "What are the prerequisites for CSCI 1111?")
-        top_k: number of chunks to retrieve from ChromaDB, defaults to 5
-        where: optional metadata filter passed to ChromaDB, e.g. {"source_url": "catalog:CSCI1133"} for exact course lookups, None for semantic search
+        top_k: number of chunks to retrieve from the vector store, defaults to 5
+        where: optional metadata filter passed to the vector store, e.g. {"source_url": "catalog:CSCI1133"} for exact course lookups, None for semantic search
 
     Returns:
         list of dicts, each containing text, source_url, source_name, and distance

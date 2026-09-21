@@ -19,7 +19,7 @@ async def embed_text(text: str) -> list[float]:
 
     Used at query time — the user's question gets passed here before
     being sent to query_collection() in vector_store.py.
-    The returned vector is what ChromaDB uses to find similar chunks.
+    The returned vector is what pgvector uses to find similar chunks.
     """
     response = await client.embeddings.create(
         model=EMBEDDING_MODEL,
