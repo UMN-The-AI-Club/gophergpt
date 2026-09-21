@@ -37,6 +37,25 @@ def init_db() -> None:
         conn.commit()
 
 
+def count_chunks(source_name: str | None = None) -> int:
+    """
+    Number of chunks in the embeddings table, optionally for one source_name.
+
+    Used by the startup hook to decide whether the catalog still needs indexing
+    and to report what an indexing run actually produced.
+    """
+    with _get_conn() as conn:
+        with conn.cursor() as cur:
+            if source_name is None:
+                cur.execute("SELECT count(*) FROM embeddings")
+            else:
+                cur.execute(
+                    "SELECT count(*) FROM embeddings WHERE source_name = %s",
+                    (source_name,),
+                )
+            return cur.fetchone()[0]
+
+
 def upsert_chunks(chunks: list[dict], embeddings: list[list[float]]) -> None:
     """
     Inserts or updates a batch of document chunks and their embeddings.

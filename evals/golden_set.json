@@ -155,6 +155,26 @@
     {"id": "multi-05", "intent": "multistep", "question": "Compare CSCI 4041 and CSCI 5421 and tell me which sections are open this fall", "user_id": null,
      "expected_tools": ["gophergrades_class", "umn_class_sections"], "expected_content_types": ["compare"],
      "must_contain": [], "must_not_contain": [],
-     "notes": "Compare path handles both halves: grade comparison via card, section data via agent tools. Tests that the judge credits groundedness across two different sources."}
+     "notes": "Compare path handles both halves: grade comparison via card, section data via agent tools. Tests that the judge credits groundedness across two different sources."},
+    {"id": "catalog-01", "intent": "catalog", "question": "What is CHEM 1061 about?", "user_id": null,
+     "expected_tools": ["course_search"], "expected_content_types": [],
+     "must_contain": [["1061"], ["atomic", "chemical principles", "stoichiometry"]], "must_not_contain": [],
+     "notes": "Exact-code lookup against the indexed Coursedog catalog. Description must come from the catalog, not web search."},
+    {"id": "catalog-02", "intent": "catalog", "question": "What are the prerequisites for CSCI 3081W?", "user_id": null,
+     "expected_tools": ["course_search"], "expected_content_types": [],
+     "must_contain": [["3081"], ["2021", "2041", "prereq"]], "must_not_contain": [],
+     "notes": "Regression guard for the W-suffix fix in code_extractor: the catalog stores this as CSCI3081W, so dropping the W would filter on a source_url that does not exist and silently return nothing. Prerequisites are inline in the description, not a structured field."},
+    {"id": "catalog-03", "intent": "catalog", "question": "How many credits is MATH 1271?", "user_id": null,
+     "expected_tools": ["course_search"], "expected_content_types": [],
+     "must_contain": [["1271"], ["4"]], "must_not_contain": [],
+     "notes": "Credit hours come from the catalog record. Must state 4 credits and not invent a range."},
+    {"id": "catalog-04", "intent": "catalog", "question": "What classes cover database systems?", "user_id": null,
+     "expected_tools": ["course_search"], "expected_content_types": [],
+     "must_contain": [["database"]], "must_not_contain": [],
+     "notes": "Semantic retrieval with no course code in the question, so no exact-match filter applies. Deliberately does not assert specific course codes — the top-k set shifts as the catalog changes. Named courses must be real."},
+    {"id": "catalog-05", "intent": "catalog", "question": "Tell me about CSCI 9999", "user_id": null,
+     "expected_tools": [], "expected_content_types": [],
+     "must_contain": [["9999"]], "must_not_contain": ["chemical principles", "3 credits", "4 credits"],
+     "notes": "CSCI 9999 does not exist. Tool choice is not the point of this case — the check is that no course description, credit count or prerequisite list is invented. Should say it cannot find the course."}
   ]
 }

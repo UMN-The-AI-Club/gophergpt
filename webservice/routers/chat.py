@@ -1,5 +1,6 @@
 import datetime
 import json
+import logging
 import os
 import re
 import asyncio
@@ -14,6 +15,8 @@ from webservice.profile_store import get_profile
 from webservice.routers.research import run_research_query, ResearchRequest
 from autonomy.tools.gophergrades_api import fetch_class, fetch_search, fetch_prof
 from autonomy.tools.umn_courses_tool import fetch_sections_async
+
+logger = logging.getLogger(__name__)
 
 # This defines where we are storing the conversation history into.
 # Will be using as a memory cache, to continue dialogue with agent.
@@ -524,6 +527,13 @@ async def chat_endpoint(request: ChatRequest, agent: ChatAgent = Depends(get_age
             prof_data = _fetch_prof_data(name)
             if prof_data:
                 profs.append(prof_data)
+                # this card resolves GopherGrades itself rather than going through
+                # the agent, so the equivalent tools are recorded by hand — same
+                # approach the grades card takes below. _fetch_prof_data() runs
+                # fetch_search then fetch_prof.
+                for emulated in ("gophergrades_search", "gophergrades_prof"):
+                    if emulated not in tools_used:
+                        tools_used.append(emulated)
 
         if profs:
             guided_message = (
@@ -536,8 +546,13 @@ async def chat_endpoint(request: ChatRequest, agent: ChatAgent = Depends(get_age
             try:
                 summary, trace = await agent.invoke_with_trace(guided_message, history=history)
             except Exception:
+                logger.exception("Professor summary agent call failed.")
                 summary, trace = "", []
-                tools_used.extend(t['name'] for t in trace if t['name'] not in tools_used)
+
+            # record after the call, not inside the except — sitting in the
+            # handler it only ever ran with trace already reset to [], so this
+            # path reported no tools at all and skewed eval tool scoring
+            tools_used.extend(t["name"] for t in trace if t["name"] not in tools_used)
 
             if len(profs) >= 2:
                 prof_follow_ups = [
@@ -560,6 +575,9 @@ async def chat_endpoint(request: ChatRequest, agent: ChatAgent = Depends(get_age
                     "summary": summary.strip() if isinstance(summary, str) else "",
                 }],
                 "follow_ups": prof_follow_ups,
+                # every other /chat path reports this; without it the eval reads
+                # tools_used as absent for professor questions and cannot score them
+                "tools_used": tools_used,
             }
 
     # Detect course comparison requests

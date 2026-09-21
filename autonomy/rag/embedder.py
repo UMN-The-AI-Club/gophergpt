@@ -1,8 +1,13 @@
 import os
 from openai import AsyncOpenAI
 
+# Indexing the full catalog sends ~31 batches back to back, which is enough to
+# exhaust the embeddings tokens-per-minute quota and get a 429 partway through.
+# The SDK honours the Retry-After on rate limit responses, so raising max_retries
+# paces the run instead of failing it. The default of 2 is not enough at this size.
 client = AsyncOpenAI(
     api_key=os.environ.get("OPENAI_KEY"),
+    max_retries=8,
 )
 
 EMBEDDING_MODEL = "text-embedding-3-small"
