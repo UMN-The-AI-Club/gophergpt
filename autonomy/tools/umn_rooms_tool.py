@@ -1,9 +1,8 @@
 import json
 import re
+import httpx
 from html.parser import HTMLParser
 from urllib.parse import quote
-from urllib.request import Request, urlopen
-
 from langchain.tools import tool
 
 _LIBCAL_BASE = "https://libcal.lib.umn.edu"
@@ -123,13 +122,13 @@ class _LibCalHTMLParser(HTMLParser):
             self._in_space_name = False
 
 
-def _fetch_libcal_spaces(lid: int) -> list:
+async def _fetch_libcal_spaces(lid: int) -> list:
     """Fetch the public LibCal spaces page for a given location ID and return room list."""
     url = f"{_LIBCAL_BASE}/spaces?lid={lid}"
-    req = Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; gophergpt/1.0)"})
     try:
-        with urlopen(req, timeout=15) as resp:
-            html = resp.read().decode("utf-8", errors="replace")
+        async with httpx.AsyncClient() as client:
+            resp = await client.get(url, headers={"User-Agent": "Mozilla/5.0 (compatible; gophergpt/1.0)"}, timeout=15)
+            html = resp.text
     except Exception:
         return []
 
@@ -147,7 +146,7 @@ def _fetch_libcal_spaces(lid: int) -> list:
 
 
 @tool
-def umn_room_booking(building_name: str) -> str:
+async def umn_room_booking(building_name: str) -> str:
     """
     Look up bookable rooms/study spaces in a UMN building, with directions.
     Input: a building name (e.g., "Walter Library", "Coffman", "Keller Hall").
@@ -163,7 +162,7 @@ def umn_room_booking(building_name: str) -> str:
     # --- Library buildings: scrape LibCal (public, no auth needed) ---
     lid = _LIBRARY_LOCATION_IDS.get(key)
     if lid:
-        rooms = _fetch_libcal_spaces(lid)
+        rooms = await _fetch_libcal_spaces(lid)
         booking_url = f"{_LIBCAL_BASE}/spaces?lid={lid}"
         lines = [
             f"{building_name} — bookable study rooms (UMN Libraries LibCal).",

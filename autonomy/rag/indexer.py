@@ -1,11 +1,15 @@
+import hashlib
 import json
+
 from autonomy.rag.chunker import chunk_text
 from autonomy.rag.embedder import embed_batch
 from autonomy.rag.vector_store import upsert_chunks
 from autonomy.rag.sources.classinfo import ClassInfoScraper
 from autonomy.tools.gophergrades_api import fetch_dept
-
 from autonomy.rag.sources.csv_catalog import load_csv_catalog
+
+CSV_PATH = "autonomy/rag/data/courses.csv"
+STAMP_PATH = "/app/data/.last_indexed"
 
 # unused
 def get_urls_from_gophergrades(dept: str) -> list[str]:
@@ -34,7 +38,13 @@ async def index_source(documents: list[dict]) -> None:
 
     for document in documents:
         chunks = chunk_text(document["text"])
-        
+
+        # prints which course is being indexed, comment out when unneeded
+        # print(f"Indexing: {document['source_url']}")
+
+        # if want text, instead of using course
+        # print(f"Indexing: {document['source_url']}, {document["text"]}")
+
         for chunk in chunks:
             chunk["source_url"] = document["source_url"]
             chunk["source_name"] = document["source_name"]
@@ -74,4 +84,11 @@ async def run_indexing() -> None:
     await index_source(documents=documents)
 
     print("Indexing complete.")
+
+    # Staleness Check
+
+    # write CSV's modified time to stamp file
+    csv_hash = hashlib.md5(open(CSV_PATH, "rb").read()).hexdigest()
+    with open(STAMP_PATH, "w") as f:
+        f.write(str(csv_hash))
 

@@ -37,32 +37,6 @@ async def _retrieve_chunks(query: str, top_k: int = 5, where: dict | None = None
     return chunks
 
 
-# deprecated, may be used later...
-@tool
-async def rag_search(query: str) -> str:
-    """
-    Searches the ChromaDB vector database directly for UMN course information. 
-    Returns raw results with no fallback. Use course_search instead for general course questions.
-
-    Args:
-        query: the user's question (e.g., "What are the prerequisites for CSCI 1111?")
-
-    Returns:
-        string of course information retrieved directly from the vector database, no fallback applied.
-    """
-
-    try:
-        chunks = await _retrieve_chunks(query)
-
-        text = ""
-        for chunk in chunks:
-            text += chunk["text"]
-
-        return text
-    except Exception as e:
-        return f"RAG search failed: {str(e)}"
-
-
 @tool
 async def course_search(query: str) -> str:
     """

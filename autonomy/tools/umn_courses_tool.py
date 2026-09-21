@@ -1,24 +1,99 @@
 import os
 import json
-from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
+
+import httpx
+import redis as redis_client
 
 from langchain.tools import tool
 
 
+_CACHE_TTL = 60 * 60 * 6  # 6 hours — section availability changes during registration
+
+
+def _get_redis():
+    return redis_client.Redis(
+        host=os.getenv("REDIS_HOST", "redis"),
+        port=int(os.getenv("REDIS_PORT", 6379)),
+        decode_responses=True,
+    )
+
+
+def _cache_get(url: str):
+    # Redis being down must never fail the request — treat it as a miss.
+    try:
+        cached = _get_redis().get(url)
+    except Exception:
+        return None
+    if cached:
+        print(f"[CACHE HIT] {url}")
+        return json.loads(cached)
+    return None
+
+
+def _cache_set(url: str, data, ttl: int = _CACHE_TTL) -> None:
+    try:
+        _get_redis().setex(url, ttl, json.dumps(data))
+    except Exception:
+        pass
+
+
 def _get_json(url: str, timeout: int = 12) -> dict:
+    """Sync variant — safe from the sync /umn routes."""
+    cached = _cache_get(url)
+    if cached is not None:
+        return cached
     req = Request(url, headers={"User-Agent": "gophergpt/1.0"})
     try:
         with urlopen(req, timeout=timeout) as resp:
-            data = resp.read().decode("utf-8")
-            return json.loads(data)
+            data = json.loads(resp.read().decode("utf-8"))
+            _cache_set(url, data)
+            return data
     except HTTPError as e:
         return {"success": False, "error": f"HTTPError {e.code}: {e.reason}", "url": url}
     except URLError as e:
         return {"success": False, "error": f"URLError: {e.reason}", "url": url}
     except Exception as e:
         return {"success": False, "error": f"Unknown error: {str(e)}", "url": url}
+
+
+async def _get_json_async(url: str, timeout: int = 12) -> dict:
+    """Async variant — used by the agent tool and async chat card paths."""
+    cached = _cache_get(url)
+    if cached is not None:
+        return cached
+    try:
+        async with httpx.AsyncClient() as client:
+            resp = await client.get(url, headers={"User-Agent": "gophergpt/1.0"}, timeout=timeout)
+            resp.raise_for_status()
+            data = resp.json()
+            print(f"[CACHE MISS] {url}")
+            _cache_set(url, data)
+            return data
+    except httpx.HTTPStatusError as e:
+        return {"success": False, "error": f"HTTPError {e.response.status_code}", "url": url}
+    except Exception as e:
+        return {"success": False, "error": str(e), "url": url}
+
+
+def _parse_time(t) -> int | None:
+    if t is None:
+        return None
+    s = str(t).strip()
+    if not s:
+        return None
+    if ":" in s:
+        parts = s.split(":")
+        hours = int(parts[0])
+        minutes = int(parts[1])
+        return hours * 60 + minutes
+    val = int(s)
+    if val == 12:
+        return 12 * 60
+    if val < 12:
+        return (val + 12) * 60
+    return val * 60
 
 
 def resolve_sterm(term_str: str) -> str:
@@ -34,15 +109,12 @@ def resolve_sterm(term_str: str) -> str:
     return str((year - 1900) * 10 + digit)
 
 
-def fetch_sections(subject: str, catalog_number: str, term: str) -> list:
-    """
-    Full structured section list for a course+term (used by the schedule card
-    and /umn/sections). Returns [] on any error. Not model-facing.
-    """
+def _sections_url(subject: str, catalog_number: str, term: str) -> str:
     sterm = resolve_sterm(term)
-    url = f"https://courses.umn.edu/campuses/UMNTC/terms/{sterm}/courses.json?q=catalog_number={catalog_number},subject_id={subject.upper()}"
+    return f"https://courses.umn.edu/campuses/UMNTC/terms/{sterm}/courses.json?q=catalog_number={catalog_number},subject_id={subject.upper()}"
 
-    data = _get_json(url)
+
+def _parse_sections(data) -> list:
     if isinstance(data, dict) and data.get("success") is False:
         return []
 
@@ -84,6 +156,19 @@ def fetch_sections(subject: str, catalog_number: str, term: str) -> list:
             })
 
     return results
+
+
+def fetch_sections(subject: str, catalog_number: str, term: str) -> list:
+    """
+    Full structured section list for a course+term (used by /umn/sections).
+    Returns [] on any error. Not model-facing.
+    """
+    return _parse_sections(_get_json(_sections_url(subject, catalog_number, term)))
+
+
+async def fetch_sections_async(subject: str, catalog_number: str, term: str) -> list:
+    """Async twin of fetch_sections — used by the schedule card path."""
+    return _parse_sections(await _get_json_async(_sections_url(subject, catalog_number, term)))
 
 
 # ─── compact summary for the agent ──────────────────────────────────────────
@@ -130,12 +215,12 @@ def _summarize_sections(results: list, subject: str, catalog_number: str, term: 
 
 
 @tool
-def umn_class_sections(subject: str, catalog_number: str, term: str) -> str:
+async def umn_class_sections(subject: str, catalog_number: str, term: str) -> str:
     """
     Live section info for a UMN course.
     Input: subject like "CSCI", catalog_number like "1933", term like "fall 2026".
     Returns one line per section (LEC first): meeting days/times, instructor,
     location, and open/closed status with cap.
     """
-    results = fetch_sections(subject, catalog_number, term)
+    results = await fetch_sections_async(subject, catalog_number, term)
     return _summarize_sections(results, subject, catalog_number, term)

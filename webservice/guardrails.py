@@ -8,24 +8,23 @@ def check_tool_leak(response: str) -> str:
         response: the response from agent, before showing user
 
     Returns:
-        a generic response if name of tool is in response, else the original response unchanged
+        removes any mention of tool names, while maintaining existing string and structure.
     """
 
     tool_list = ["gophergrades_search", 
-                 "gophergrades_class", 
-                 "gophergrades_prof", 
-                 "gophergrades_dept", 
-                 "umn_class_sections", 
-                 "umn_room_booking", 
-                 "course_search", 
-                 "rag_search", 
-                 "tavily_search"]
-    
-    for tool in tool_list:
-        if tool in response:
-            return "I found some relevant information for you. " \
-            "Please try rephrasing your question if you'd like more details."
-        
+                "gophergrades_class", 
+                "gophergrades_prof", 
+                "gophergrades_dept", 
+                "umn_class_sections", 
+                "umn_room_booking", 
+                "course_search", 
+                "rag_search", 
+                "tavily_search"]
+
+    sentences = re.split(r'(?<=[.!?])\s+', response)
+    filtered = [s for s in sentences if not any(filler.lower() in s.lower() for filler in tool_list)]
+    response = " ".join(filtered)
+
     return response
 
 
@@ -53,29 +52,29 @@ def check_filler(response: str) -> str:
 
     return response
 
+# may be deprecated 
+# def check_prof_rating(response: str, message: str) -> str:
+#     """
+#     Checks the message for mentions of professor
 
-def check_prof_rating(response: str, message: str) -> str:
-    """
-    Checks the message for mentions of professor
+#     Args:
+#         response: the response from agent, before showing user
+#         message: the query from the user
 
-    Args:
-        response: the response from agent, before showing user
-        message: the query from the user
+#     Returns:
+#         the original response unchanged if a rating is found or the question isn't about a professor, 
+#         else a fallback message prompting the user to ask more specifically.
+#     """
 
-    Returns:
-        the original response unchanged if a rating is found or the question isn't about a professor, 
-        else a fallback message prompting the user to ask more specifically.
-    """
+#     prof_keywords = ["professor", "prof", "instructor", "teacher", "who teaches"]
 
-    prof_keywords = ["professor", "prof", "instructor", "teacher", "who teaches"]
-
-    for keyword in prof_keywords:
-        if keyword in message.lower():
-            if not re.search(r'\d+\.?\d*/5', response):
-                return "I wasn't able to find a rating for that professor. " \
-                "Try asking about a specific professor by name."
+#     for keyword in prof_keywords:
+#         if keyword in message.lower():
+#             if not re.search(r'\d+\.?\d*/5', response):
+#                 return "I wasn't able to find a rating for that professor. " \
+#                 "Try asking about a specific professor by name."
         
-    return response
+#     return response
 
 
 def run_guardrails(response: str, message: str) -> str:
@@ -92,7 +91,7 @@ def run_guardrails(response: str, message: str) -> str:
     """
     response = check_tool_leak(response)
     response = check_filler(response)
-    response = check_prof_rating(response, message)
+    # response = check_prof_rating(response, message)
 
 
     return response

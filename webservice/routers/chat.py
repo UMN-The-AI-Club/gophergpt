@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import re
+import asyncio
 
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
@@ -12,7 +13,7 @@ from webservice.personalization import build_personalized_prompt
 from webservice.profile_store import get_profile
 from webservice.routers.research import run_research_query, ResearchRequest
 from autonomy.tools.gophergrades_api import fetch_class, fetch_search, fetch_prof
-from autonomy.tools.umn_courses_tool import fetch_sections
+from autonomy.tools.umn_courses_tool import fetch_sections_async
 
 # This defines where we are storing the conversation history into.
 # Will be using as a memory cache, to continue dialogue with agent.
@@ -69,25 +70,23 @@ def _extract_term(message: str) -> str:
         return f"fall {year}"
     return f"spring {year + 1}"
 
-def _fetch_schedule_data(course_codes: list, term: str) -> list:
-    courses = []
-    for code in course_codes[:4]:
-        m = re.match(r'^([A-Z]+)(\d+[A-Z]?)', code)
-        if not m:
-            continue
-        subject = m.group(1)
-        catalog_number = m.group(2)
-        try:
-            sections = fetch_sections(subject, catalog_number, term)
-            if isinstance(sections, list) and len(sections) > 0:
-                courses.append({
-                    "code": code,
-                    "term": term,
-                    "sections": sections
-                })
-        except Exception:
-            pass
-    return courses
+async def _fetch_one(code: str, term: str) -> dict | None:
+    m = re.match(r'^([A-Z]+)(\d+[A-Z]?)', code)
+    if not m:
+        return None
+    subject = m.group(1)
+    catalog_number = m.group(2)
+    try:
+        sections = await fetch_sections_async(subject, catalog_number, term)
+        if isinstance(sections, list) and len(sections) > 0:
+            return {"code": code, "term": term, "sections": sections}
+    except Exception:
+        pass
+    return None
+
+async def _fetch_schedule_data(course_codes: list, term: str) -> list:
+    results = await asyncio.gather(*[_fetch_one(code, term) for code in course_codes[:4]])
+    return [r for r in results if r is not None]
 
 
 class ChatRequest(BaseModel):
@@ -445,7 +444,7 @@ async def chat_endpoint(request: ChatRequest, agent: ChatAgent = Depends(get_age
         profile_codes = extract_course_codes(notes)
         if profile_codes:
             term = _extract_term(notes)
-            schedule_data = _fetch_schedule_data(profile_codes, term)
+            schedule_data = await _fetch_schedule_data(profile_codes, term)
             if schedule_data:
                 codes_str = ", ".join(c["code"] for c in schedule_data)
                 tools_used.append("umn_class_sections")
@@ -631,7 +630,7 @@ async def chat_endpoint(request: ChatRequest, agent: ChatAgent = Depends(get_age
     # (avoids the agent writing out sections as prose text alongside the card)
     if _is_scheduling_request(request.message) and len(course_codes) >= 1:
         term = _extract_term(request.message)
-        schedule_data = _fetch_schedule_data(course_codes, term)
+        schedule_data = await _fetch_schedule_data(course_codes, term)
         if schedule_data:
             codes_str = ", ".join(c["code"] for c in schedule_data)
             tools_used.append("umn_class_sections")
@@ -676,7 +675,8 @@ def save_endpoint(request: ConversationRequest):
     if os.path.exists(CONVERSATION_FILE):
         # exist, so read file
         with open(CONVERSATION_FILE, "r") as file:
-            conversations = json.load(file)
+            content = file.read().strip()
+            conversations = json.loads(content) if content else []
     else:
         # doesn't exist, so make list to store temporarily
         conversations = []
