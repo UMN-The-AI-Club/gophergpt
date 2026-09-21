@@ -1,110 +1,116 @@
 import os
-import chromadb
+import psycopg2
+from psycopg2.extras import execute_values
+from pgvector.psycopg2 import register_vector
 
 
-# reading in host and port from env
-CHROMA_HOST = os.getenv("CHROMA_HOST", "localhost")
-CHROMA_PORT = int(os.getenv("CHROMA_PORT", 8000))
-
-# collection name...
-COLLECTION_NAME = "umn_docs"
-
-# 
-def get_client():
-    """
-    Creates and returns a ChromaDB HTTP client using the host and port from environment variables.
-
-    Returns:
-        a chromadb.HttpClient connected to the ChromaDB service
-    """
-    return chromadb.HttpClient(host = CHROMA_HOST, port = CHROMA_PORT)
-
-
-def get_collection():
-    """
-    Returns the umn_docs ChromaDB collection, creating it if it doesn't exist.
-
-    Returns: 
-        chromadb.Collection — the umn_docs collection configured with cosine similarity.
-    """
-    client = get_client()
-    return client.get_or_create_collection(
-        name = COLLECTION_NAME, 
-        metadata={"hnsw:space": "cosine"} # cosine similarity (measures distance between similarity)
+def _get_conn():
+    return psycopg2.connect(
+        host=os.getenv("POSTGRES_HOST", "postgres"),
+        port=int(os.getenv("POSTGRES_PORT", 5432)),
+        user=os.getenv("POSTGRES_USER", "gophergpt"),
+        password=os.getenv("POSTGRES_PASSWORD", "gophergpt"),
+        dbname=os.getenv("POSTGRES_DB", "gophergpt")
     )
+
+
+def init_db() -> None:
+    """
+    Creates the pgvector extension and embeddings table if they don't exist.
+    Called once on app startup before serving requests.
+    """
+    with _get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute("CREATE EXTENSION IF NOT EXISTS vector")
+            register_vector(conn)
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS embeddings (
+                    id          TEXT PRIMARY KEY,
+                    text        TEXT,
+                    source_url  TEXT,
+                    source_name TEXT,
+                    scraped_at  TEXT,
+                    chunk_index INTEGER,
+                    embedding   vector(1536)
+                )
+            """)
+        conn.commit()
 
 
 def upsert_chunks(chunks: list[dict], embeddings: list[list[float]]) -> None:
     """
-    Inserts or updates a batch of document chunks and their embeddings into the collection.
-    
+    Inserts or updates a batch of document chunks and their embeddings.
+
     Args:
-        chunks: list of dicts, each with keys text, source_url, source_name, scraped_at, and chunk_index
+        chunks: list of dicts, each with keys text, source_url, source_name, scraped_at, chunk_index
         embeddings: list of float vectors, one per chunk, in the same order as chunks
     """
-
-    collection = get_collection()
-
-    # builds a stable, unique ID from source + position for re-indexing
-    ids = [f"{chunk['source_url']}::{chunk['chunk_index']}" for chunk in chunks]
-
-    documents = [chunk["text"] for chunk in chunks]
-
-    # metadata is stored alongside vector, returned with search results
-    metadatas = [
-        {
-            "source_url": chunk["source_url"],
-            "source_name": chunk["source_name"],
-            "scraped_at": chunk["scraped_at"],
-            "chunk_index": chunk["chunk_index"],
-        }
-        for chunk in chunks
+    rows = [
+        (
+            f"{chunk['source_url']}::{chunk['chunk_index']}",
+            chunk["text"],
+            chunk["source_url"],
+            chunk["source_name"],
+            chunk["scraped_at"],
+            chunk["chunk_index"],
+            embedding
+        )
+        for chunk, embedding in zip(chunks, embeddings)
     ]
+    with _get_conn() as conn:
+        register_vector(conn)
+        with conn.cursor() as cur:
+            execute_values(cur, """
+                INSERT INTO embeddings (id, text, source_url, source_name, scraped_at, chunk_index, embedding)
+                VALUES %s
+                ON CONFLICT (id) DO UPDATE SET
+                    text = EXCLUDED.text,
+                    embedding = EXCLUDED.embedding,
+                    scraped_at = EXCLUDED.scraped_at
+            """, rows)
+        conn.commit()
 
-    # insert if new, overwrite if already exist
-    collection.upsert(
-        ids=ids,
-        documents=documents,
-        embeddings=embeddings,
-        metadatas=metadatas
-    )
-    
 
 def query_collection(query_embedding: list[float], top_k: int = 5, where: dict | None = None) -> list[dict]:
     """
     Finds the top_k most similar chunks to a given query embedding.
-    
+
     Args:
         query_embedding: embedded vector of the user's question
         top_k: number of chunks to return, defaults to 5
-        where: optional metadata filter e.g. {"source_url": "catalog:CSCI1133"}, pass None for normal semantic search
+        where: optional metadata filter e.g. {"source_url": "catalog:CSCI1133"}, pass None for semantic search
 
     Returns:
         list of dicts each with keys: text, source_url, source_name, distance (lower = more similar)
     """
+    with _get_conn() as conn:
+        register_vector(conn)
+        with conn.cursor() as cur:
+            if where and "source_url" in where:
+                cur.execute("""
+                    SELECT text, source_url, source_name,
+                           embedding <=> %s::vector AS distance
+                    FROM embeddings
+                    WHERE source_url = %s
+                    ORDER BY distance
+                    LIMIT %s
+                """, (query_embedding, where["source_url"], top_k))
+            else:
+                cur.execute("""
+                    SELECT text, source_url, source_name,
+                           embedding <=> %s::vector AS distance
+                    FROM embeddings
+                    ORDER BY distance
+                    LIMIT %s
+                """, (query_embedding, top_k))
+            rows = cur.fetchall()
 
-    collection = get_collection()
-
-    results = collection.query(
-        query_embeddings=[query_embedding],
-        n_results=top_k,
-        include=["documents", "metadatas", "distances"],
-        where=where
-    )
-
-    # unpacking ChromaDB's nested results format into flat list
-    chunk = []
-
-    for text, metadata, distance in zip(
-        results["documents"][0],
-        results["metadatas"][0],
-        results["distances"][0]
-    ):
-        chunk.append({
-            "text": text,
-            "source_url": metadata["source_url"],
-            "source_name": metadata["source_name"],
-            "distance": round(distance, 4)
-        })
-
-    return chunk
+    return [
+        {
+            "text": row[0],
+            "source_url": row[1],
+            "source_name": row[2],
+            "distance": round(row[3], 4)
+        }
+        for row in rows
+    ]

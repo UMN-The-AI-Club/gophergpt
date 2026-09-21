@@ -19,8 +19,9 @@ services:
       - ./evals:/usr/src/app/evals     # eval results survive rebuilds + stay visible to git
       - ./scripts:/usr/src/app/scripts # judge/runner edits apply without a rebuild
 
-    depends_on:        # wait for chromadb container to start before backend
-      - chromadb
+    depends_on:        # wait for postgres container
+      - postgres
+      - redis
 
   frontend:
     build:
@@ -61,14 +62,29 @@ services:
     restart: always
 
 
-  chromadb:
-    image: chromadb/chroma:latest
-    container_name: gophergpt-chromadb
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: gophergpt-postgres
     ports:
-      - "8001:8000"   # exposes to host for debugging; backend uses internal DNS (http://chromadb:8000)
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: gophergpt
+      POSTGRES_PASSWORD: gophergpt
+      POSTGRES_DB: gophergpt
     volumes:
-      - chroma_data:/chroma/chroma   # named volume — persists across container restarts
+      - postgres_data:/var/lib/postgresql/data
     restart: always
 
+  redis:
+    image: redis:7-alpine
+    container_name: gophergpt-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+
+
 volumes:
-  chroma_data:        # docker manages this — use `docker volume rm gophergpt_chroma_data` to reset
+  postgres_data:
+  redis_data:

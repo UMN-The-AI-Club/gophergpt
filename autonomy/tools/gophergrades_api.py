@@ -4,21 +4,78 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
+import httpx
+import redis as redis_client
+
 from langchain.tools import tool
 
 
+_CACHE_TTL = 60 * 60 * 24 * 30  # 30 days — grade data changes once a semester
+
+
+def _get_redis():
+    return redis_client.Redis(
+        host=os.getenv("REDIS_HOST", "redis"),
+        port=int(os.getenv("REDIS_PORT", 6379)),
+        decode_responses=True,
+    )
+
+
+def _cache_get(url: str):
+    # Redis being down must never fail the request — treat it as a miss.
+    try:
+        cached = _get_redis().get(url)
+    except Exception:
+        return None
+    if cached:
+        print(f"[CACHE HIT] {url}")
+        return json.loads(cached)
+    return None
+
+
+def _cache_set(url: str, data, ttl: int = _CACHE_TTL) -> None:
+    try:
+        _get_redis().setex(url, ttl, json.dumps(data))
+    except Exception:
+        pass
+
+
 def _get_json(url: str, timeout: int = 12) -> dict:
+    """Sync variant — safe from the sync /umn routes and debug endpoints."""
+    cached = _cache_get(url)
+    if cached is not None:
+        return cached
     req = Request(url, headers={"User-Agent": "gophergpt/1.0"})
     try:
         with urlopen(req, timeout=timeout) as resp:
-            data = resp.read().decode("utf-8")
-            return json.loads(data)
+            data = json.loads(resp.read().decode("utf-8"))
+            _cache_set(url, data)
+            return data
     except HTTPError as e:
         return {"success": False, "error": f"HTTPError {e.code}: {e.reason}", "url": url}
     except URLError as e:
         return {"success": False, "error": f"URLError: {e.reason}", "url": url}
     except Exception as e:
         return {"success": False, "error": f"Unknown error: {str(e)}", "url": url}
+
+
+async def _get_json_async(url: str, timeout: int = 12) -> dict:
+    """Async variant — used by the agent tools and async chat card paths."""
+    cached = _cache_get(url)
+    if cached is not None:
+        return cached
+    try:
+        async with httpx.AsyncClient() as client:
+            resp = await client.get(url, headers={"User-Agent": "gophergpt/1.0"}, timeout=timeout)
+            resp.raise_for_status()
+            data = resp.json()
+            print(f"[CACHE MISS] {url}")
+            _cache_set(url, data)
+            return data
+    except httpx.HTTPStatusError as e:
+        return {"success": False, "error": f"HTTPError {e.response.status_code}", "url": url}
+    except Exception as e:
+        return {"success": False, "error": str(e), "url": url}
 
 
 def _base_api() -> str:
@@ -76,6 +133,27 @@ def fetch_prof(prof_code: str) -> dict:
 def fetch_dept(dept_code: str) -> dict:
     """Full department data (large). Not model-facing."""
     return _get_json(f"{_base_api()}/dept/{dept_code.upper()}")
+
+
+async def fetch_search_async(query: str) -> dict:
+    """Async twin of fetch_search — use from async endpoints and tools."""
+    return await _get_json_async(f"{_base_api()}/search?{urlencode({'q': query})}")
+
+
+async def fetch_class_async(class_code: str) -> dict:
+    """Async twin of fetch_class."""
+    normalized = class_code.replace(" ", "").upper()
+    return await _get_json_async(f"{_base_api()}/class/{normalized}")
+
+
+async def fetch_prof_async(prof_code: str) -> dict:
+    """Async twin of fetch_prof."""
+    return await _get_json_async(f"{_base_api()}/prof/{prof_code}")
+
+
+async def fetch_dept_async(dept_code: str) -> dict:
+    """Async twin of fetch_dept."""
+    return await _get_json_async(f"{_base_api()}/dept/{dept_code.upper()}")
 
 
 # ─── summarizers (COMPACT text — what the agent actually reads) ──────────────
@@ -183,42 +261,42 @@ def _summarize_dept(data: dict) -> str:
 # ─── model-facing tools (return COMPACT summaries) ──────────────────────────
 
 @tool
-def gophergrades_search(query: str) -> str:
+async def gophergrades_search(query: str) -> str:
     """
     Search UMN classes/instructors/departments using GopherGrades.
     Input: a free-text query (e.g., "CSCI 1933", "data structures", "Kauffman").
     Returns a short list of matching classes and professors WITH their IDs
     (use a professor's id with gophergrades_prof).
     """
-    return _summarize_search(fetch_search(query), query)
+    return _summarize_search(await fetch_search_async(query), query)
 
 
 @tool
-def gophergrades_class(class_code: str) -> str:
+async def gophergrades_class(class_code: str) -> str:
     """
     Grade distributions + instructor ratings for a course.
     Input: course code like "CSCI1933" or "CSCI 1933".
     Returns a concise summary: overall A/B rate & average GPA, plus the top
     instructors with their ratings.
     """
-    return _summarize_class(fetch_class(class_code))
+    return _summarize_class(await fetch_class_async(class_code))
 
 
 @tool
-def gophergrades_prof(prof_code: str) -> str:
+async def gophergrades_prof(prof_code: str) -> str:
     """
     Professor profile from GopherGrades.
     Input: the professor's id/code from a gophergrades_search result (not the name).
     Returns their rating, difficulty, courses taught, and overall grade tendency.
     """
-    return _summarize_prof(fetch_prof(prof_code))
+    return _summarize_prof(await fetch_prof_async(prof_code))
 
 
 @tool
-def gophergrades_dept(dept_code: str) -> str:
+async def gophergrades_dept(dept_code: str) -> str:
     """
     Department overview from GopherGrades.
     Input: dept code like "CSCI".
     Returns the department name, course count, and highest-enrollment courses only.
     """
-    return _summarize_dept(fetch_dept(dept_code))
+    return _summarize_dept(await fetch_dept_async(dept_code))
