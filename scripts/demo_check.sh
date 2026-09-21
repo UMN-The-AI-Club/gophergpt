@@ -51,5 +51,6 @@ ask "Professor lookup"  '{"message":"tell me about professor Chad Myers"}'     '
 ask "Room booking"      '{"message":"how do I get to Keller Hall and can I book a room there?"}' 'campusmaps.umn.edu'
 ask "Study spaces"      '{"message":"where are good places to study on campus?"}' 'Walter'
 ask "General web search" '{"message":"what is the U Card at UMN?"}'            'U Card'
+ask "RAG course_search" '{"message":"what are the prerequisites for CSCI 1933?"}' '1133'
 
 bold "Done. Open $FRONTEND and demo."
