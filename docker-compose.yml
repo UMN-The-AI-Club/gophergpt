@@ -12,12 +12,22 @@ services:
     env_file:
       - .env
 
+    environment:
+      # passed through from the host shell so `FORCE_REINDEX=1 docker compose up`
+      # actually reaches the app — without this the variable stops at the compose
+      # CLI and the reindex silently does not happen
+      - FORCE_REINDEX=${FORCE_REINDEX:-}
+      - CATALOG_SOURCE=${CATALOG_SOURCE:-}
+      - CATALOG_MAX_AGE_HOURS=${CATALOG_MAX_AGE_HOURS:-}
+
     restart: always
 
     volumes:
       - ./webservice/data:/app/data
       - ./evals:/usr/src/app/evals     # eval results survive rebuilds + stay visible to git
       - ./scripts:/usr/src/app/scripts # judge/runner edits apply without a rebuild
+      - ./autonomy/rag/data:/usr/src/app/autonomy/rag/data # courses.csv is gitignored — mount it so
+                                                           # dropping in a new export needs no rebuild
 
     depends_on:        # wait for postgres container
       - postgres

@@ -8,6 +8,7 @@ webservice/data/profiles.json
 webservice/data/gophergpt.db
 
 autonomy/rag/data/courses.csv
+autonomy/rag/data/courses_api.json
 
 # Python bytecode
 __pycache__/
